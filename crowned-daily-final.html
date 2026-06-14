@@ -1,0 +1,1964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Crowned Daily 👑</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --rose: #B8808E;
+  --rose-deep: #8A5462;
+  --rose-light: #CFA0AC;
+  --blush: #FAF3F5;
+  --soft-pink: #EDD8DC;
+  --mauve: #BFA0A8;
+  --antique: #A88090;
+  --cream: #FEFBFB;
+  --warm: #FDF6F7;
+  --border: #E8D4D8;
+  --text-dark: #3A2232;
+  --text-mid: #785262;
+  --text-light: #A88898;
+  --card: #FFFFFF;
+  --gold: #C8A880;
+  --green: #5E7A66;
+  --blue: #6C88A8;
+  --purple: #8870A6;
+}
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--cream); color: var(--text-dark); min-height: 100vh; padding-bottom: 60px; }
+
+/* HEADER */
+.header { background: linear-gradient(135deg, #7A4858 0%, #A87080 50%, #C49898 100%); color: white; padding: 18px 16px 14px; text-align: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 16px rgba(136,14,79,0.35); }
+.header-crown { font-size: 22px; margin-bottom: 2px; }
+.header-title { font-size: 26px; font-style: italic; font-weight: 700; letter-spacing: 0.5px; }
+.header-sub { font-size: 11px; opacity: 0.85; margin: 3px 0 8px; letter-spacing: 1px; text-transform: uppercase; }
+.header-date { font-size: 12px; opacity: 0.9; margin-bottom: 6px; }
+.streak-row { display: flex; justify-content: center; gap: 12px; }
+.streak-pill { background: rgba(255,255,255,0.2); border-radius: 20px; padding: 4px 12px; font-size: 12px; }
+
+/* NAV */
+.nav-scroll { overflow-x: auto; background: white; border-bottom: 1px solid var(--border); -webkit-overflow-scrolling: touch; scrollbar-width: none; position: sticky; top: 118px; z-index: 99; }
+.nav-scroll::-webkit-scrollbar { display: none; }
+.nav-tabs { display: flex; padding: 0 6px; min-width: max-content; }
+.nav-tab { padding: 11px 12px; font-size: 12px; font-weight: 500; color: var(--text-light); border: none; background: none; cursor: pointer; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.2s; }
+.nav-tab.active { color: var(--rose); border-bottom-color: var(--rose); font-weight: 600; }
+
+/* CONTENT */
+.content { padding: 14px; max-width: 480px; margin: 0 auto; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* CARDS */
+.card { background: var(--card); border-radius: 16px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 8px rgba(194,24,91,0.07); border: 1px solid var(--border); }
+.card-title { font-size: 16px; font-style: italic; font-weight: 700; color: var(--rose); margin-bottom: 12px; }
+.section-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--rose); font-weight: 600; margin-bottom: 8px; }
+
+/* GLANCE CARD */
+.glance-card { background: linear-gradient(135deg, #7A4858, #A87080); color: white; border-radius: 18px; padding: 20px; margin-bottom: 12px; }
+.glance-theme { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.8; margin-bottom: 4px; }
+.glance-word { font-size: 32px; font-weight: 700; font-style: italic; margin-bottom: 12px; }
+.glance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.glance-item { background: rgba(255,255,255,0.15); border-radius: 10px; padding: 10px; }
+.glance-item-label { font-size: 10px; opacity: 0.75; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.glance-item-value { font-size: 13px; font-weight: 600; line-height: 1.3; }
+
+/* TAP SELECTORS */
+.tap-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.tap-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.tap-grid-4 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.tap-btn { padding: 12px 8px; border-radius: 12px; border: 1.5px solid var(--border); background: white; cursor: pointer; text-align: center; transition: all 0.2s; font-size: 12px; color: var(--text-mid); }
+.tap-btn .tap-icon { font-size: 20px; display: block; margin-bottom: 4px; }
+.tap-btn.selected { border-color: var(--rose); background: var(--blush); color: var(--rose); font-weight: 600; }
+
+/* TOGGLE */
+.toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid var(--border); }
+.toggle-row:last-child { border-bottom: none; }
+.toggle-info { flex: 1; }
+.toggle-label { font-size: 14px; font-weight: 500; color: var(--text-dark); }
+.toggle-sub { font-size: 11px; color: var(--text-light); margin-top: 1px; }
+.toggle { position: relative; width: 44px; height: 26px; flex-shrink: 0; margin-left: 10px; }
+.toggle input { opacity: 0; width: 0; height: 0; }
+.toggle-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: #ddd; border-radius: 26px; transition: 0.3s; }
+.toggle-slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.3s; }
+input:checked + .toggle-slider { background: var(--rose); }
+input:checked + .toggle-slider:before { transform: translateX(18px); }
+
+/* VERSE / PRAYER CARD */
+.rotating-card { background: linear-gradient(135deg, #7A4858, #A87080); color: white; border-radius: 16px; padding: 20px; margin-bottom: 12px; }
+.rotating-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.8; margin-bottom: 8px; }
+.rotating-text { font-style: italic; font-size: 15px; line-height: 1.7; }
+.rotating-ref { font-size: 12px; opacity: 0.75; margin-top: 8px; font-weight: 600; }
+.rotating-nav { display: flex; justify-content: flex-end; margin-top: 10px; gap: 6px; }
+.rot-btn { background: rgba(255,255,255,0.2); border: none; color: white; border-radius: 8px; padding: 4px 10px; font-size: 12px; cursor: pointer; }
+
+/* AFFIRMATION */
+.affirmation-card { background: var(--warm); border-radius: 14px; padding: 16px; margin-bottom: 12px; border: 1px solid var(--soft-pink); text-align: center; }
+.affirmation-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-light); margin-bottom: 8px; }
+.affirmation-text { font-style: italic; font-size: 16px; color: var(--rose); font-weight: 600; line-height: 1.5; }
+.affirmation-sub { font-size: 11px; color: var(--text-light); margin-top: 6px; }
+
+/* GRATITUDE */
+.gratitude-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 8px; }
+.grat-btn { padding: 10px 6px; border-radius: 10px; border: 1.5px solid var(--border); background: white; cursor: pointer; text-align: center; font-size: 11px; color: var(--text-mid); transition: all 0.2s; }
+.grat-btn.selected { border-color: var(--rose); background: var(--blush); color: var(--rose); font-weight: 600; }
+
+/* WATER */
+.water-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 5px; margin: 8px 0; }
+.water-cup { width: 100%; aspect-ratio: 1; border-radius: 8px; border: 2px solid var(--soft-pink); background: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: all 0.2s; }
+.water-cup.filled { background: #E3F2FD; border-color: var(--blue); }
+
+/* PROGRESS BAR */
+.prog-bar { background: var(--border); border-radius: 20px; height: 6px; margin: 6px 0; overflow: hidden; }
+.prog-fill { background: linear-gradient(90deg, var(--rose), var(--rose-light)); height: 6px; border-radius: 20px; transition: width 0.4s; }
+
+/* SLEEP SLIDER */
+.sleep-slider { width: 100%; accent-color: var(--rose); margin: 8px 0; }
+.sleep-display { text-align: center; font-size: 24px; font-weight: 700; color: var(--rose); }
+.sleep-note { text-align: center; font-size: 12px; color: var(--text-light); }
+
+/* INPUTS */
+.form-group { margin-bottom: 10px; }
+.form-label { font-size: 11px; font-weight: 600; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; display: block; }
+input[type="text"], input[type="date"], input[type="month"], textarea, select { width: 100%; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 14px; background: var(--blush); color: var(--text-dark); outline: none; font-family: inherit; }
+input:focus, textarea:focus, select:focus { border-color: var(--rose); background: white; }
+textarea { min-height: 70px; resize: vertical; }
+.btn-primary { width: 100%; padding: 13px; background: linear-gradient(135deg, var(--rose), var(--rose-light)); color: white; border: none; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 6px; }
+.btn-secondary { padding: 8px 14px; background: white; color: var(--rose); border: 1.5px solid var(--rose); border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+.input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+/* TASK ITEMS */
+.task-item { background: white; border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; border: 1.5px solid var(--border); display: flex; align-items: flex-start; gap: 10px; }
+.task-item.done { opacity: 0.6; }
+.task-check { width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--border); background: white; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; margin-top: 1px; transition: all 0.2s; }
+.task-check.checked { background: var(--rose); border-color: var(--rose); color: white; font-size: 12px; }
+.task-check.checked::after { content: '✓'; }
+.task-body { flex: 1; }
+.task-name { font-size: 14px; font-weight: 600; color: var(--text-dark); }
+.task-item.done .task-name { text-decoration: line-through; color: var(--text-light); }
+.task-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+.task-tag { font-size: 10px; padding: 2px 8px; border-radius: 20px; font-weight: 500; }
+.delete-btn { background: none; border: none; color: var(--text-light); font-size: 14px; cursor: pointer; flex-shrink: 0; }
+
+/* CALENDAR */
+.cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.cal-month { font-size: 17px; font-weight: 700; color: var(--text-dark); }
+.cal-nav-btn { background: none; border: 1.5px solid var(--border); border-radius: 8px; width: 30px; height: 30px; cursor: pointer; font-size: 14px; color: var(--text-mid); }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.cal-day-hdr { text-align: center; font-size: 10px; font-weight: 600; color: var(--text-light); padding: 4px 2px; }
+.cal-day { text-align: center; padding: 5px 2px; border-radius: 8px; cursor: pointer; position: relative; min-height: 34px; font-size: 12px; }
+.cal-day:hover { background: var(--blush); }
+.cal-day.today { background: var(--rose); color: white; font-weight: 700; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; margin: 0 auto; }
+.cal-day.has-event::after { content: ''; position: absolute; bottom: 1px; left: 50%; transform: translateX(-50%); width: 5px; height: 5px; border-radius: 50%; background: var(--rose); }
+.cal-day.today.has-event::after { background: white; }
+.cal-day.other-month { opacity: 0.3; }
+.event-item { background: white; border-radius: 10px; padding: 10px 12px; margin-bottom: 6px; border-left: 3px solid var(--rose); }
+.event-name { font-size: 14px; font-weight: 600; }
+.event-meta { font-size: 11px; color: var(--text-light); margin-top: 2px; }
+
+/* RUNNING LOW */
+.low-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; background: #FFF9C4; border-radius: 10px; margin-bottom: 6px; border-left: 3px solid #F9A825; }
+.low-name { font-size: 14px; font-weight: 500; }
+.got-it-btn { background: none; border: 1.5px solid #2E7D32; color: #2E7D32; border-radius: 8px; padding: 4px 10px; font-size: 12px; cursor: pointer; font-weight: 600; }
+.quick-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 10px; }
+.quick-btn { padding: 8px 4px; border-radius: 8px; border: 1.5px solid var(--border); background: white; font-size: 11px; color: var(--text-mid); cursor: pointer; text-align: center; }
+
+/* FAMILY CARDS */
+.family-member-card { background: white; border-radius: 14px; padding: 14px; margin-bottom: 10px; border: 1px solid var(--border); }
+.family-member-header { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.family-avatar { font-size: 24px; }
+.family-name { font-size: 16px; font-weight: 700; color: var(--text-dark); }
+.family-role { font-size: 11px; color: var(--text-light); }
+
+/* SUMMARY */
+.sum-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.sum-card { background: white; border-radius: 12px; padding: 12px; text-align: center; border: 1px solid var(--border); }
+.sum-num { font-size: 24px; font-weight: 700; }
+.sum-label { font-size: 11px; color: var(--text-light); margin-top: 2px; }
+
+/* LOG ENTRY */
+.log-entry { background: var(--warm); border-radius: 10px; padding: 10px 12px; margin-bottom: 6px; border-left: 3px solid var(--rose); font-size: 13px; color: var(--text-dark); }
+.log-date { font-size: 11px; color: var(--text-light); margin-top: 4px; }
+
+.empty-state { text-align: center; padding: 20px; color: var(--text-light); font-style: italic; font-size: 13px; }
+.app-footer { text-align: center; padding: 20px 16px 8px; color: var(--text-light); font-size: 12px; font-style: italic; line-height: 1.6; }
+.divider { height: 1px; background: var(--border); margin: 12px 0; }
+.pill { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; display: inline-block; margin: 2px; }
+.pill-pink { background: var(--blush); color: var(--deep-rose); }
+.pill-green { background: #C8E6C9; color: #1B5E20; }
+.pill-blue { background: #BBDEFB; color: #0D47A1; }
+.pill-purple { background: #E1BEE7; color: #4A148C; }
+.pill-gold { background: #FFF9C4; color: #F57F17; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-crown">👑</div>
+  <div class="header-title">Crowned Daily</div>
+  <div class="header-sub">A Woman's Standard</div>
+  <div class="header-date" id="header-date"></div>
+  <div class="streak-row">
+    <div class="streak-pill">🔥 <span id="streak-count">0</span> day streak</div>
+    <div class="streak-pill">✨ <span id="month-theme-header">Set your theme</span></div>
+  </div>
+</div>
+
+<div class="nav-scroll">
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showTab('faith',this)">🙏 Faith</button>
+    <button class="nav-tab" onclick="showTab('wellness',this)">🌿 Wellness</button>
+    <button class="nav-tab" onclick="showTab('family',this)">💕 Family</button>
+    <button class="nav-tab" onclick="showTab('work',this)">💼 Work & Self</button>
+    <button class="nav-tab" onclick="showTab('tasks',this)">✅ Tasks</button>
+    <button class="nav-tab" onclick="showTab('calendar',this)">📅 Calendar</button>
+    <button class="nav-tab" onclick="showTab('savings',this)">💰 Savings</button>
+    <button class="nav-tab" onclick="showTab('running-low',this)">🛒 Running Low</button>
+    <button class="nav-tab" onclick="showTab('journal',this)">📓 Journal</button>
+    <button class="nav-tab" onclick="showTab('notes',this)">📝 Notes</button>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- FAITH TAB -->
+<div id="tab-faith" class="tab-panel active">
+
+  <!-- Today at a Glance -->
+  <div class="glance-card">
+    <div class="glance-theme">This Month's Theme</div>
+    <div class="glance-word" id="glance-theme-word">—</div>
+    <div class="glance-grid">
+      <div class="glance-item">
+        <div class="glance-item-label">Today's Affirmation</div>
+        <div class="glance-item-value" id="glance-affirmation">Loading...</div>
+      </div>
+      <div class="glance-item">
+        <div class="glance-item-label">Top Priority</div>
+        <div class="glance-item-value" id="glance-priority">Not set yet</div>
+      </div>
+      <div class="glance-item">
+        <div class="glance-item-label">Day Streak</div>
+        <div class="glance-item-value">🔥 <span id="glance-streak">0</span> days</div>
+      </div>
+      <div class="glance-item">
+        <div class="glance-item-label">Bible Chapter</div>
+        <div class="glance-item-value" id="glance-chapter">Not set</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Monthly Theme -->
+  <!-- Mood History -->
+  <div class="card">
+    <div class="section-label">💗 Last 7 Days — Mood History</div>
+    <div id="mood-history" style="display:flex;gap:6px;justify-content:center;margin:8px 0;flex-wrap:wrap;"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">✨ Monthly Theme & Scripture</div>
+    <div class="form-group">
+      <label class="form-label">My word for this month</label>
+      <input type="text" id="month-theme" placeholder="e.g. Peace, Trust, Abundance..." onchange="saveMonthTheme()">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Bible Chapter I'm going deep on</label>
+      <input type="text" id="month-chapter" placeholder="e.g. Proverbs 31, Psalm 91..." onchange="saveMonthChapter()">
+    </div>
+  </div>
+
+  <!-- Monthly Declaration -->
+  <div class="card">
+    <div class="card-title">📣 My Monthly Declaration</div>
+    <div style="font-size:12px;color:var(--text-light);margin-bottom:8px;">Set it once. It stays all month.</div>
+    <textarea id="monthly-declaration" placeholder="This month I declare..." onchange="saveDeclaration()" style="min-height:80px;"></textarea>
+  </div>
+
+  <!-- Today's Declaration -->
+  <div class="rotating-card">
+    <div class="rotating-label">📣 Today's Declaration</div>
+    <div class="rotating-text" id="daily-declaration">Loading...</div>
+    <div class="rotating-nav">
+      <button class="rot-btn" onclick="prevItem('declaration')">← Prev</button>
+      <button class="rot-btn" onclick="nextItem('declaration')">Next →</button>
+      <button class="rot-btn" onclick="addCustomItem('declaration')">+ Add</button>
+    </div>
+  </div>
+
+  <!-- Today's Prayer -->
+  <div class="rotating-card">
+    <div class="rotating-label">🙏 Today's Prayer</div>
+    <div class="rotating-text" id="daily-prayer">Loading...</div>
+    <div class="rotating-nav">
+      <button class="rot-btn" onclick="prevItem('prayer')">← Prev</button>
+      <button class="rot-btn" onclick="nextItem('prayer')">Next →</button>
+      <button class="rot-btn" onclick="addCustomItem('prayer')">+ Add</button>
+    </div>
+  </div>
+
+  <!-- Today's Scripture -->
+  <div class="rotating-card">
+    <div class="rotating-label">📖 Today's Scripture</div>
+    <div class="rotating-text" id="daily-scripture">Loading...</div>
+    <div class="rotating-ref" id="daily-scripture-ref"></div>
+    <div class="rotating-nav">
+      <button class="rot-btn" onclick="prevItem('scripture')">← Prev</button>
+      <button class="rot-btn" onclick="nextItem('scripture')">Next →</button>
+      <button class="rot-btn" onclick="addCustomItem('scripture')">+ Add</button>
+    </div>
+  </div>
+
+  <!-- Affirmation -->
+  <div class="affirmation-card">
+    <div class="affirmation-label">💗 Today's Affirmation</div>
+    <div class="affirmation-text" id="daily-affirmation">Loading...</div>
+    <div class="affirmation-sub">Speak this over yourself today</div>
+  </div>
+
+  <!-- Prayer Intention -->
+  <div class="card">
+    <div class="card-title">🕊️ Prayer Intention</div>
+    <div style="font-size:12px;color:var(--text-light);margin-bottom:8px;">One thing you are trusting God for this season</div>
+    <textarea id="prayer-intention" placeholder="Lord, I am trusting you with..." onchange="savePrayerIntention()" style="min-height:70px;"></textarea>
+  </div>
+
+  <!-- Gratitude -->
+  <div class="card">
+    <div class="card-title">🌸 Today I Am Grateful For</div>
+    <div class="gratitude-grid" id="gratitude-grid"></div>
+    <input type="text" id="grat-custom" placeholder="Or type your own..." onchange="saveGratCustom()">
+  </div>
+
+  <!-- Prayed Today -->
+  <div class="card">
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-label">🙏 I prayed today</div><div class="toggle-sub">You showed up for God today</div></div>
+      <label class="toggle"><input type="checkbox" id="prayed-today" onchange="saveToggle('prayed-today')"><span class="toggle-slider"></span></label>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-label">📖 I read my scripture today</div><div class="toggle-sub">Going deep on this month's chapter</div></div>
+      <label class="toggle"><input type="checkbox" id="read-scripture" onchange="saveToggle('read-scripture')"><span class="toggle-slider"></span></label>
+    </div>
+  </div>
+
+
+  <!-- Answered Prayers -->
+  <div class="card">
+    <div class="card-title">🎉 Answered Prayers</div>
+    <div style="font-size:12px;color:var(--text-light);margin-bottom:8px;">When God comes through — log it. This is your testimony wall.</div>
+    <div style="display:flex;gap:8px;margin-bottom:10px;">
+      <input type="text" id="answered-prayer-input" placeholder="What did God do?..." style="flex:1;">
+      <button class="btn-secondary" onclick="addAnsweredPrayer()">+ Log</button>
+    </div>
+    <div id="answered-prayers-list"><div class="empty-state">Your testimony wall will build here 🙏</div></div>
+  </div>
+
+  <div class="app-footer">Crowned Daily 👑 · A Woman's Standard<br>Walking in purpose, covered by grace 🌸</div>
+</div>
+
+<!-- WELLNESS TAB -->
+<div id="tab-wellness" class="tab-panel" style="display:none;">
+
+  <!-- How are you feeling -->
+  <div class="card">
+    <div class="card-title">🌅 Morning Intention</div>
+    <div style="font-size:12px;color:var(--text-light);margin-bottom:10px;">Set the tone before you leave this tab</div>
+    <div class="tap-grid-3">
+      <button class="tap-btn" onclick="tapSelect('morning-intention','Lead with grace',this)"><span class="tap-icon">🕊️</span>Lead with grace</button>
+      <button class="tap-btn" onclick="tapSelect('morning-intention','Stay present',this)"><span class="tap-icon">🌸</span>Stay present</button>
+      <button class="tap-btn" onclick="tapSelect('morning-intention','Protect my peace',this)"><span class="tap-icon">🛡️</span>Protect my peace</button>
+      <button class="tap-btn" onclick="tapSelect('morning-intention','Show up fully',this)"><span class="tap-icon">💪</span>Show up fully</button>
+      <button class="tap-btn" onclick="tapSelect('morning-intention','Trust the process',this)"><span class="tap-icon">🙏</span>Trust the process</button>
+      <button class="tap-btn" onclick="tapSelect('morning-intention','Choose joy',this)"><span class="tap-icon">✨</span>Choose joy</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">💗 How Are You Feeling?</div>
+    <div class="tap-grid-4">
+      <button class="tap-btn" onclick="tapSelect('feeling','Thriving',this)"><span class="tap-icon">✨</span>Thriving</button>
+      <button class="tap-btn" onclick="tapSelect('feeling','Good',this)"><span class="tap-icon">🌸</span>Good</button>
+      <button class="tap-btn" onclick="tapSelect('feeling','Okay',this)"><span class="tap-icon">🌧️</span>Okay</button>
+      <button class="tap-btn" onclick="tapSelect('feeling','Low',this)"><span class="tap-icon">😴</span>Low</button>
+    </div>
+  </div>
+
+  <!-- Mom Energy -->
+  <div class="card">
+    <div class="card-title">👑 Mom Energy Today</div>
+    <div class="tap-grid-2">
+      <button class="tap-btn" onclick="tapSelect('mom-energy','Thriving',this)"><span class="tap-icon">🌟</span>Thriving</button>
+      <button class="tap-btn" onclick="tapSelect('mom-energy','Present',this)"><span class="tap-icon">💕</span>Present</button>
+      <button class="tap-btn" onclick="tapSelect('mom-energy','Running on fumes',this)"><span class="tap-icon">😮‍💨</span>Running on fumes</button>
+      <button class="tap-btn" onclick="tapSelect('mom-energy','Needed grace',this)"><span class="tap-icon">🙏</span>Needed grace</button>
+    </div>
+  </div>
+
+  <!-- Body Note -->
+  <div class="card">
+    <div class="card-title">🫀 Body Note</div>
+    <div class="tap-grid-3" style="margin-bottom:8px;">
+      <button class="tap-btn" onclick="tapSelect('body','Energized',this)"><span class="tap-icon">⚡</span>Energized</button>
+      <button class="tap-btn" onclick="tapSelect('body','Good',this)"><span class="tap-icon">😊</span>Good</button>
+      <button class="tap-btn" onclick="tapSelect('body','Tired',this)"><span class="tap-icon">😴</span>Tired</button>
+      <button class="tap-btn" onclick="tapSelect('body','Headache',this)"><span class="tap-icon">🤕</span>Headache</button>
+      <button class="tap-btn" onclick="tapSelect('body','Tense',this)"><span class="tap-icon">😬</span>Tense</button>
+      <button class="tap-btn" onclick="tapSelect('body','Sore',this)"><span class="tap-icon">💪</span>Sore</button>
+    </div>
+  </div>
+
+  <!-- Cycle Phase -->
+
+  <!-- Cycle Tracker -->
+  <div class="card">
+    <div class="card-title">🌙 Cycle Tracker</div>
+    <div style="font-size:12px;color:var(--text-light);margin-bottom:10px;">Track your cycle dates and phase</div>
+    <div class="tap-grid-4" style="margin-bottom:12px;">
+      <button class="tap-btn" onclick="tapSelect('cycle','Menstrual',this)"><span class="tap-icon">🔴</span>Menstrual</button>
+      <button class="tap-btn" onclick="tapSelect('cycle','Follicular',this)"><span class="tap-icon">🌱</span>Follicular</button>
+      <button class="tap-btn" onclick="tapSelect('cycle','Ovulation',this)"><span class="tap-icon">☀️</span>Ovulation</button>
+      <button class="tap-btn" onclick="tapSelect('cycle','Luteal',this)"><span class="tap-icon">🌙</span>Luteal</button>
+    </div>
+    <div class="input-row">
+      <div class="form-group"><label class="form-label">🔴 Period Started</label><input type="date" id="cycle-start" onchange="saveCycleDate()"></div>
+      <div class="form-group"><label class="form-label">🟢 Period Ended</label><input type="date" id="cycle-end" onchange="saveCycleDate()"></div>
+    </div>
+    <div class="form-group"><label class="form-label">Notes (symptoms, flow, anything)</label><textarea id="cycle-notes" placeholder="How are you feeling this phase?..." onchange="saveCycleNotes()" style="min-height:55px;"></textarea></div>
+    <button class="btn-secondary" style="width:100%;margin-top:4px;" onclick="logCycleEntry()">+ Log Cycle Entry</button>
+    <div id="cycle-log" style="margin-top:10px;"><div class="empty-state">Your cycle history will build here</div></div>
+  </div>
+
+
+
+  <!-- Sleep -->
+
+  <!-- Prayer for My Cycle -->
+  <div class="rotating-card">
+    <div class="rotating-label">🙏 Prayer for My Body This Phase</div>
+    <div class="rotating-text" id="cycle-prayer-text">Loading...</div>
+    <div class="rotating-nav">
+      <button class="rot-btn" onclick="prevItem('cycle-prayer')">← Prev</button>
+      <button class="rot-btn" onclick="nextItem('cycle-prayer')">Next →</button>
+      <button class="rot-btn" onclick="addCustomItem('cycle-prayer')">+ Add</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">😴 Sleep Last Night</div>
+    <div class="sleep-display" id="sleep-display">7 hrs</div>
+    <input type="range" class="sleep-slider" id="sleep-slider" min="3" max="12" step="0.5" value="7" oninput="updateSleep(this.value)">
+    <div class="sleep-note" id="sleep-note">Good rest — your body thanks you.</div>
+  </div>
+
+  <!-- Water -->
+  <div class="card">
+    <div class="card-title">💧 Water Tracker</div>
+    <div style="font-size:12px;color:var(--text-light);margin-bottom:6px;">Goal: 8 glasses — tap each cup as you drink</div>
+    <div class="water-grid" id="water-grid"></div>
+    <div class="prog-bar"><div class="prog-fill" id="water-fill" style="width:0%"></div></div>
+    <div style="text-align:right;font-size:12px;color:var(--blue);" id="water-label">0 of 8 glasses</div>
+  </div>
+
+  <!-- Movement -->
+  <div class="card">
+    <div class="card-title">🏃 Movement</div>
+    <div class="form-group">
+      <label class="form-label">What did you do?</label>
+      <select id="movement-type" onchange="updateMovement()">
+        <option value="">Select movement...</option>
+        <option value="walking">🚶 Walking</option>
+        <option value="running">🏃 Running</option>
+        <option value="cycling">🚴 Cycling</option>
+        <option value="yoga">🧘 Yoga</option>
+        <option value="pilates">✨ Pilates</option>
+        <option value="crossfit">💪 CrossFit</option>
+        <option value="legs">🦵🏾 Legs Day</option>
+        <option value="upper">💪 Upper Body</option>
+        <option value="fullbody">🔥 Full Body</option>
+        <option value="hiit">⚡ HIIT</option>
+        <option value="swim">🏊 Swimming</option>
+        <option value="dance">💃 Dance</option>
+        <option value="rest">😴 Rest Day</option>
+      </select>
+    </div>
+    <div id="movement-detail" style="display:none;">
+      <div class="input-row">
+        <div class="form-group"><label class="form-label" id="movement-detail-label">Duration (min)</label><input type="text" id="movement-amount" placeholder="e.g. 30" onchange="saveMovement()"></div>
+        <div class="form-group"><label class="form-label">How did it feel?</label>
+          <select id="movement-feel" onchange="saveMovement()">
+            <option>Great 🔥</option>
+            <option>Good 💪</option>
+            <option>Hard but done ✓</option>
+            <option>Struggled 😮‍💨</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Supplements -->
+  <div class="card">
+    <div class="card-title">💊 Supplements & Vitamins</div>
+    <div id="supplements-list"></div>
+    <div style="display:flex;gap:8px;margin-top:8px;">
+      <select id="supp-time" style="flex:1;">
+        <option>Morning</option>
+        <option>Evening</option>
+      </select>
+      <input type="text" id="supp-name" placeholder="Add supplement..." style="flex:2;">
+      <button class="btn-secondary" onclick="addSupplement()">Add</button>
+    </div>
+  </div>
+
+  <!-- Morning Skincare -->
+  <div class="card">
+    <div class="card-title">🌅 Morning Skincare</div>
+    <div id="morning-skincare-checks">
+      <div class="toggle-row" onclick="toggleCheck('msk-cleanser')"><div class="toggle-info"><div class="toggle-label">🧴 Cleanser</div></div><div class="check-box-sm" id="msk-cleanser"></div></div>
+      <div class="toggle-row" onclick="toggleCheck('msk-toner')"><div class="toggle-info"><div class="toggle-label">💧 Toner / Essence</div></div><div class="check-box-sm" id="msk-toner"></div></div>
+      <div class="toggle-row" onclick="toggleCheck('msk-serum')"><div class="toggle-info"><div class="toggle-label">✨ Serum</div></div><div class="check-box-sm" id="msk-serum"></div></div>
+      <div class="toggle-row" onclick="toggleCheck('msk-moisturizer')"><div class="toggle-info"><div class="toggle-label">🌸 Moisturizer</div></div><div class="check-box-sm" id="msk-moisturizer"></div></div>
+      <div class="toggle-row" onclick="toggleCheck('msk-spf')"><div class="toggle-info"><div class="toggle-label">☀️ SPF</div></div><div class="check-box-sm" id="msk-spf"></div></div>
+    </div>
+    <div class="form-group" style="margin-top:10px;">
+      <label class="form-label">Skincare Notes</label>
+      <textarea id="skincare-notes" placeholder="How is my skin responding? Products, reactions, observations..." onchange="saveSkincare()" style="min-height:55px;"></textarea>
+    </div>
+  </div>
+
+  <!-- Evening Skincare -->
+  <div class="card">
+    <div class="card-title">🌙 Evening Skincare</div>
+    <div>
+      <div class="toggle-row" onclick="toggleCheck('esk-makeup')"><div class="toggle-info"><div class="toggle-label">💄 Makeup Removed</div></div><div class="check-box-sm" id="esk-makeup"></div></div>
+      <div class="toggle-row" onclick="toggleCheck('esk-cleanser')"><div class="toggle-info"><div class="toggle-label">🧴 Cleanser</div></div><div class="check-box-sm" id="esk-cleanser"></div></div>
+      <div class="toggle-row" onclick="toggleCheck('esk-toner')"><div class="toggle-info"><div class="toggle-label">💧 Toner / Essence</div></div><div class="check-box-sm" id="esk-toner"></div></div>
+      <div class="toggle-row" onclick="toggleCheck('esk-serum')"><div class="toggle-info"><div class="toggle-label">✨ Serum / Treatment</div></div><div class="check-box-sm" id="esk-serum"></div></div>
+      <div class="toggle-row" onclick="toggleCheck('esk-eye')"><div class="toggle-info"><div class="toggle-label">👁️ Eye Cream</div></div><div class="check-box-sm" id="esk-eye"></div></div>
+      <div class="toggle-row" onclick="toggleCheck('esk-night')"><div class="toggle-info"><div class="toggle-label">🌸 Night Moisturizer</div></div><div class="check-box-sm" id="esk-night"></div></div>
+    </div>
+    <div class="toggle-row" style="margin-top:4px;">
+      <div class="toggle-info"><div class="toggle-label">🍷 Wine Moment</div><div class="toggle-sub">Did you have your glass tonight?</div></div>
+      <label class="toggle"><input type="checkbox" id="wine-moment" onchange="saveToggle('wine-moment')"><span class="toggle-slider"></span></label>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-label">🛡️ Did I protect my peace today?</div></div>
+      <label class="toggle"><input type="checkbox" id="peace-protected" onchange="saveToggle('peace-protected')"><span class="toggle-slider"></span></label>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-label">💊 Evening Supplements</div></div>
+      <label class="toggle"><input type="checkbox" id="eve-supplements" onchange="saveToggle('eve-supplements')"><span class="toggle-slider"></span></label>
+    </div>
+  </div>
+
+  <div class="app-footer">Crowned Daily 👑 · A Woman's Standard</div>
+</div>
+
+<!-- FAMILY TAB -->
+<div id="tab-family" class="tab-panel" style="display:none;">
+
+  <!-- Londyn -->
+  <div class="family-member-card">
+    <div class="family-member-header">
+      <div class="family-avatar">🌸</div>
+      <div><div class="family-name">Londyn</div><div class="family-role">Your daughter · Always</div></div>
+    </div>
+    <div class="section-label">How is Londyn today?</div>
+    <div class="tap-grid-4" style="margin-bottom:10px;">
+      <button class="tap-btn" onclick="tapSelect('londyn-mood','Thriving',this)"><span class="tap-icon">🌟</span>Thriving</button>
+      <button class="tap-btn" onclick="tapSelect('londyn-mood','Good day',this)"><span class="tap-icon">💕</span>Good day</button>
+      <button class="tap-btn" onclick="tapSelect('londyn-mood','Needed me',this)"><span class="tap-icon">🫂</span>Needed me</button>
+      <button class="tap-btn" onclick="tapSelect('londyn-mood','Had a moment',this)"><span class="tap-icon">🌧️</span>Had a moment</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Something I noticed or want to remember</label>
+      <input type="text" id="londyn-note" placeholder="A moment worth keeping..." onchange="saveField('londyn-note')">
+    </div>
+    <div class="section-label" style="margin-top:8px;">📚 Assignments & Projects</div>
+    <div style="display:flex;gap:8px;margin-bottom:8px;">
+      <input type="text" id="londyn-assign-name" placeholder="Assignment or project..." style="flex:2;">
+      <input type="date" id="londyn-assign-date" style="flex:1;">
+      <button class="btn-secondary" onclick="addLondynAssignment()">Add</button>
+    </div>
+    <div id="londyn-assignments-list"><div class="empty-state">No assignments added yet</div></div>
+  </div>
+
+  <!-- Cambridge -->
+  <div class="family-member-card">
+    <div class="family-member-header">
+      <div class="family-avatar">🌟</div>
+      <div><div class="family-name">Cambridge</div><div class="family-role">Your little one · 3 years old</div></div>
+    </div>
+    <div class="section-label">Cambridge today</div>
+    <div class="tap-grid-3" style="margin-bottom:10px;">
+      <button class="tap-btn" onclick="tapSelect('cam-mood','Great day',this)"><span class="tap-icon">😄</span>Great day</button>
+      <button class="tap-btn" onclick="tapSelect('cam-mood','Good',this)"><span class="tap-icon">😊</span>Good</button>
+      <button class="tap-btn" onclick="tapSelect('cam-mood','Fussy',this)"><span class="tap-icon">😤</span>Fussy</button>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-label">📚 Read at home today</div></div>
+      <label class="toggle"><input type="checkbox" id="cam-read" onchange="saveToggle('cam-read')"><span class="toggle-slider"></span></label>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-label">🌅 Good morning routine</div></div>
+      <label class="toggle"><input type="checkbox" id="cam-morning" onchange="saveToggle('cam-morning')"><span class="toggle-slider"></span></label>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-label">🌙 Good bedtime routine</div></div>
+      <label class="toggle"><input type="checkbox" id="cam-bedtime" onchange="saveToggle('cam-bedtime')"><span class="toggle-slider"></span></label>
+    </div>
+    <div class="form-group" style="margin-top:10px;">
+      <label class="form-label">Something he said or did today 💛</label>
+      <div style="display:flex;gap:8px;">
+        <input type="text" id="cam-moment-input" placeholder="Capture the moment..." style="flex:1;">
+        <button class="btn-secondary" onclick="addCamMilestone()">Save 💛</button>
+      </div>
+    </div>
+    <div id="cam-milestones" style="margin-top:8px;"><div class="empty-state">His milestone jar will fill up here 💛</div></div>
+    <div class="section-label" style="margin-top:10px;">✅ Cambridge Tasks</div>
+    <div style="display:flex;gap:8px;margin-bottom:8px;">
+      <input type="text" id="cam-task-input" placeholder="Task for Cambridge..." style="flex:2;">
+      <input type="date" id="cam-task-date" style="flex:1;">
+      <button class="btn-secondary" onclick="addCamTask()">Add</button>
+    </div>
+    <div id="cam-tasks-list"><div class="empty-state">No tasks yet</div></div>
+  </div>
+
+  <!-- Samad -->
+  <div class="family-member-card">
+    <div class="family-member-header">
+      <div class="family-avatar">💞</div>
+      <div><div class="family-name">Samad</div><div class="family-role">Your husband · Your partner</div></div>
+    </div>
+    <div class="section-label">Marriage temperature today</div>
+    <div class="tap-grid-4" style="margin-bottom:10px;">
+      <button class="tap-btn" onclick="tapSelect('marriage','Connected',this)"><span class="tap-icon">💕</span>Connected</button>
+      <button class="tap-btn" onclick="tapSelect('marriage','Good',this)"><span class="tap-icon">😊</span>Good</button>
+      <button class="tap-btn" onclick="tapSelect('marriage','Distant',this)"><span class="tap-icon">🌧️</span>Distant</button>
+      <button class="tap-btn" onclick="tapSelect('marriage','Need a moment',this)"><span class="tap-icon">🤍</span>Need a moment</button>
+    </div>
+    <div class="section-label">How we connected today</div>
+    <div class="tap-grid-3" style="margin-bottom:10px;">
+      <button class="tap-btn" onclick="tapSelect('samad-connect','Quality time',this)"><span class="tap-icon">💞</span>Quality time</button>
+      <button class="tap-btn" onclick="tapSelect('samad-connect','Good convo',this)"><span class="tap-icon">💬</span>Good convo</button>
+      <button class="tap-btn" onclick="tapSelect('samad-connect','Prayed together',this)"><span class="tap-icon">🙏</span>Prayed together</button>
+      <button class="tap-btn" onclick="tapSelect('samad-connect','Date night',this)"><span class="tap-icon">🌹</span>Date night</button>
+      <button class="tap-btn" onclick="tapSelect('samad-connect','Just us',this)"><span class="tap-icon">💝</span>Just us</button>
+      <button class="tap-btn" onclick="tapSelect('samad-connect','Ships passing',this)"><span class="tap-icon">🚢</span>Ships passing</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">One intentional thing for us today</label>
+      <input type="text" id="samad-intention" placeholder="Something I did or want to do for us..." onchange="saveField('samad-intention')">
+    </div>
+    <div style="margin-top:8px;">
+      <div class="section-label">💕 One thing I appreciate about him</div>
+      <div style="display:flex;gap:8px;margin-bottom:8px;">
+        <input type="text" id="samad-gratitude-input" placeholder="I appreciate..." style="flex:1;">
+        <button class="btn-secondary" onclick="addSamadMemory()">Save 💕</button>
+      </div>
+      <div id="samad-memories"><div class="empty-state">Your love log will build here 💕</div></div>
+    </div>
+  </div>
+
+  <!-- Somaya & Mahdi -->
+  <div class="family-member-card">
+    <div class="family-member-header">
+      <div class="family-avatar">🌸⭐</div>
+      <div><div class="family-name">Somaya & Mahdi</div><div class="family-role">Weekend visits</div></div>
+    </div>
+    <div class="toggle-row">
+      <div class="toggle-info"><div class="toggle-label">🏠 Somaya & Mahdi are here this weekend</div></div>
+      <label class="toggle"><input type="checkbox" id="sm-here" onchange="saveToggle('sm-here')"><span class="toggle-slider"></span></label>
+    </div>
+    <div class="form-group" style="margin-top:8px;">
+      <label class="form-label">Next visit</label>
+      <input type="text" id="sm-next-visit" placeholder="e.g. June 20 — June 22" onchange="saveField('sm-next-visit')">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Notes for this visit</label>
+      <input type="text" id="sm-notes" placeholder="Any plans or notes..." onchange="saveField('sm-notes')">
+    </div>
+  </div>
+
+  <div class="app-footer">Crowned Daily 👑 · A Woman's Standard</div>
+</div>
+
+<!-- WORK & SELF TAB -->
+<div id="tab-work" class="tab-panel" style="display:none;">
+
+  <!-- Top 3 -->
+  <div class="card">
+    <div class="card-title">🎯 Top 3 Priorities Today</div>
+    <div id="top3-list">
+      <div style="display:flex;gap:8px;margin-bottom:8px;align-items:center;"><span style="width:24px;height:24px;background:var(--rose);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;">1</span><input type="text" id="p1" placeholder="Most important task today..." onchange="saveTop3()"></div>
+      <div style="display:flex;gap:8px;margin-bottom:8px;align-items:center;"><span style="width:24px;height:24px;background:var(--text-mid);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;">2</span><input type="text" id="p2" placeholder="Second priority..." onchange="saveTop3()"></div>
+      <div style="display:flex;gap:8px;align-items:center;"><span style="width:24px;height:24px;background:var(--text-light);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;">3</span><input type="text" id="p3" placeholder="Third priority..." onchange="saveTop3()"></div>
+    </div>
+  </div>
+
+  <!-- Meeting Energy -->
+  <div class="card">
+    <div class="card-title">💼 How Did I Show Up at Work?</div>
+    <div class="tap-grid-2">
+      <button class="tap-btn" onclick="tapSelect('work-energy','On fire',this)"><span class="tap-icon">🔥</span>On fire</button>
+      <button class="tap-btn" onclick="tapSelect('work-energy','Steady',this)"><span class="tap-icon">💪</span>Steady</button>
+      <button class="tap-btn" onclick="tapSelect('work-energy','Distracted',this)"><span class="tap-icon">😵</span>Distracted</button>
+      <button class="tap-btn" onclick="tapSelect('work-energy','Overwhelmed',this)"><span class="tap-icon">😮‍💨</span>Overwhelmed</button>
+    </div>
+  </div>
+
+  <!-- Job Search -->
+
+
+  <!-- One Thing Just for Me -->
+  <div class="card">
+    <div class="card-title">🌸 One Thing Just for LaLa</div>
+    <div class="tap-grid-3">
+      <button class="tap-btn" onclick="tapSelect('just-me','Got outside',this)"><span class="tap-icon">🌿</span>Got outside</button>
+      <button class="tap-btn" onclick="tapSelect('just-me','Read something',this)"><span class="tap-icon">📖</span>Read something</button>
+      <button class="tap-btn" onclick="tapSelect('just-me','Skincare ritual',this)"><span class="tap-icon">🧴</span>Skincare ritual</button>
+      <button class="tap-btn" onclick="tapSelect('just-me','Prayed',this)"><span class="tap-icon">🙏</span>Prayed</button>
+      <button class="tap-btn" onclick="tapSelect('just-me','Called a friend',this)"><span class="tap-icon">📱</span>Called a friend</button>
+      <button class="tap-btn" onclick="tapSelect('just-me','Quiet time',this)"><span class="tap-icon">🕊️</span>Quiet time</button>
+      <button class="tap-btn" onclick="tapSelect('just-me','Rested',this)"><span class="tap-icon">😴</span>Rested</button>
+      <button class="tap-btn" onclick="tapSelect('just-me','Enjoyed wine',this)"><span class="tap-icon">🍷</span>Enjoyed wine</button>
+      <button class="tap-btn" onclick="tapSelect('just-me','Worked out',this)"><span class="tap-icon">💪</span>Worked out</button>
+    </div>
+  </div>
+
+  <!-- Win of the Day -->
+  <div class="card">
+    <div class="card-title">🏆 Win of the Day</div>
+    <div style="font-size:12px;color:var(--text-light);margin-bottom:8px;">Drop a win — any size, any day</div>
+    <div style="display:flex;gap:8px;">
+      <input type="text" id="win-input" placeholder="One thing I did well today..." style="flex:1;">
+      <button class="btn-secondary" onclick="saveWin()">Save</button>
+    </div>
+    <div id="wins-log" style="margin-top:10px;"><div class="empty-state">Your wins will build up here 💕</div></div>
+  </div>
+
+  <!-- PM Brain Dump -->
+  <div class="card">
+    <div class="card-title">🧠 PM Brain Dump</div>
+    <div style="font-size:12px;color:var(--text-light);margin-bottom:8px;">Parking lot — things swirling that are not tasks yet</div>
+    <textarea id="brain-dump" placeholder="Get it out of your head and onto the page..." onchange="saveBrainDump()" style="min-height:90px;"></textarea>
+  </div>
+
+  <!-- Word of Intention -->
+  <div class="card">
+    <div class="card-title">✨ Word of Intention Today</div>
+    <div class="tap-grid-3" style="margin-bottom:8px;">
+      <button class="tap-btn" onclick="tapSelect('intention','Focus',this)"><span class="tap-icon">🎯</span>Focus</button>
+      <button class="tap-btn" onclick="tapSelect('intention','Grace',this)"><span class="tap-icon">🕊️</span>Grace</button>
+      <button class="tap-btn" onclick="tapSelect('intention','Power',this)"><span class="tap-icon">⚡</span>Power</button>
+      <button class="tap-btn" onclick="tapSelect('intention','Peace',this)"><span class="tap-icon">🌸</span>Peace</button>
+      <button class="tap-btn" onclick="tapSelect('intention','Joy',this)"><span class="tap-icon">✨</span>Joy</button>
+      <button class="tap-btn" onclick="tapSelect('intention','Trust',this)"><span class="tap-icon">🙏</span>Trust</button>
+    </div>
+    <input type="text" id="intention-custom" placeholder="Or type your own word..." onchange="saveField('intention-custom')">
+  </div>
+
+  <!-- Home Pulse -->
+  <div class="card">
+    <div class="card-title">🏠 Home Pulse</div>
+    <div style="font-size:12px;color:var(--text-light);margin-bottom:8px;">How does the home feel today?</div>
+    <div class="tap-grid-4">
+      <button class="tap-btn" onclick="tapSelect('home-pulse','Peaceful',this)"><span class="tap-icon">🕊️</span>Peaceful</button>
+      <button class="tap-btn" onclick="tapSelect('home-pulse','Busy',this)"><span class="tap-icon">⚡</span>Busy</button>
+      <button class="tap-btn" onclick="tapSelect('home-pulse','Tense',this)"><span class="tap-icon">😬</span>Tense</button>
+      <button class="tap-btn" onclick="tapSelect('home-pulse','Joyful',this)"><span class="tap-icon">💕</span>Joyful</button>
+    </div>
+  </div>
+
+  <button class="btn-primary" onclick="saveDay()">🌟 Save today and start fresh tomorrow</button>
+
+  <div class="app-footer">Crowned Daily 👑 · A Woman's Standard</div>
+</div>
+
+<!-- TASKS TAB -->
+<div id="tab-tasks" class="tab-panel" style="display:none;">
+  <div class="card">
+    <div class="card-title">✅ Add a Task</div>
+    <div class="form-group"><input type="text" id="task-name" placeholder="Task name..."></div>
+    <div class="input-row">
+      <div class="form-group">
+        <select id="task-cat">
+          <option value="home">🏠 Home</option>
+          <option value="myloves">💕 My Loves</option>
+          <option value="work">💼 Work</option>
+          <option value="personal">🌸 Personal</option>
+          <option value="appointments">📅 Appointments</option>
+          <option value="errands">🛒 Errands</option>
+          <option value="samad">💝 Samad</option>
+        </select>
+      </div>
+      <div class="form-group"><input type="date" id="task-due"></div>
+    </div>
+    <div class="input-row">
+      <div class="form-group">
+        <select id="task-priority">
+          <option value="high">🔴 High</option>
+          <option value="medium">🟡 Medium</option>
+          <option value="low">🟢 Low</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <select id="task-status">
+          <option value="not-started">Not started</option>
+          <option value="in-progress">In progress</option>
+          <option value="waiting">Waiting</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="addTask()">+ Add Task</button>
+  </div>
+
+  <div id="open-tasks"><div class="empty-state">No open tasks 💕</div></div>
+
+  <div style="margin-top:14px;">
+    <div class="section-label">✓ Completed</div>
+    <div id="done-tasks"><div class="empty-state">Completed tasks will appear here</div></div>
+  </div>
+
+  <div class="app-footer">Crowned Daily 👑 · A Woman's Standard</div>
+</div>
+
+<!-- CALENDAR TAB -->
+<div id="tab-calendar" class="tab-panel" style="display:none;">
+  <div class="card">
+    <div class="cal-header">
+      <button class="cal-nav-btn" onclick="changeMonth(-1)">‹</button>
+      <div class="cal-month" id="cal-month-label"></div>
+      <button class="cal-nav-btn" onclick="changeMonth(1)">›</button>
+    </div>
+    <div class="cal-grid" id="cal-headers"></div>
+    <div class="cal-grid" id="cal-days"></div>
+  </div>
+
+  <div class="card" id="selected-day-card">
+    <div class="section-label" id="selected-day-label">Tap a day to see events</div>
+    <div id="selected-day-events"><div class="empty-state">No events on this day 💕</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">+ Add Event</div>
+    <div class="form-group"><input type="text" id="ev-name" placeholder="Event name..."></div>
+    <div class="input-row">
+      <div class="form-group"><label class="form-label">Date</label><input type="date" id="ev-date"></div>
+      <div class="form-group"><label class="form-label">Time</label><input type="time" id="ev-time"></div>
+    </div>
+    <div class="form-group">
+      <select id="ev-cat">
+        <option value="work">💼 Work</option>
+        <option value="personal">🌸 Personal</option>
+        <option value="londyn">🌸 Londyn</option>
+        <option value="cambridge">🌟 Cambridge</option>
+        <option value="family">💕 Family</option>
+        <option value="medical">🏥 Medical</option>
+        <option value="self-care">💆🏾 Self Care</option>
+        <option value="faith">🙏 Faith</option>
+      </select>
+    </div>
+    <div class="form-group"><textarea id="ev-notes" placeholder="Notes..." style="min-height:50px;"></textarea></div>
+    <button class="btn-primary" onclick="addEvent()">+ Add to Calendar</button>
+  </div>
+
+  <div class="app-footer">Crowned Daily 👑 · A Woman's Standard</div>
+</div>
+
+<!-- SAVINGS TAB -->
+<div id="tab-savings" class="tab-panel" style="display:none;">
+
+  <div class="card">
+    <div class="card-title">🎯 Add a Saving Goal</div>
+    <div class="form-group"><input type="text" id="goal-name" placeholder="e.g. Londyn's Tuition, MacBook, Vacation..."></div>
+    <div class="input-row">
+      <div class="form-group"><label class="form-label">Target Amount ($)</label><input type="number" id="goal-target" placeholder="0.00"></div>
+      <div class="form-group"><label class="form-label">Target Date</label><input type="date" id="goal-date"></div>
+    </div>
+    <div class="form-group">
+      <select id="goal-cat">
+        <option value="education">🎓 Education & Tuition</option>
+        <option value="gift">🎁 Gift</option>
+        <option value="travel">✈️ Travel & Experience</option>
+        <option value="home">🏠 Home</option>
+        <option value="personal">👑 Personal</option>
+        <option value="beauty">💄 Beauty & Skincare</option>
+        <option value="justbecause">🌸 Just Because</option>
+      </select>
+    </div>
+    <button class="btn-primary" onclick="addGoal()">+ Add Goal</button>
+  </div>
+
+  <div id="goals-list"><div class="empty-state">No saving goals yet 💕</div></div>
+
+  <div class="card" style="margin-top:16px;">
+    <div class="card-title">🎁 Gift & Wish List</div>
+    <div style="font-size:12px;color:var(--text-light);margin-bottom:10px;">Save links so you never lose the perfect gift idea</div>
+    <div class="form-group"><input type="text" id="wish-name" placeholder="Item name..."></div>
+    <div class="input-row">
+      <div class="form-group">
+        <select id="wish-for">
+          <option>👑 Me</option><option>🌸 Londyn</option><option>🌟 Cambridge</option>
+          <option>💞 Samad</option><option>🌸 Somaya</option><option>⭐ Mahdi</option><option>🌸 Someone else</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <select id="wish-occasion">
+          <option>🎂 Birthday</option><option>🎄 Christmas</option><option>🎒 Back to School</option>
+          <option>🌸 Just Because</option><option>🎓 Graduation</option><option>💕 Anniversary</option><option>🙏 Thank You</option>
+        </select>
+      </div>
+    </div>
+    <div class="input-row">
+      <div class="form-group"><label class="form-label">Price ($)</label><input type="number" id="wish-price" placeholder="0.00"></div>
+      <div class="form-group"><label class="form-label">Store / Link</label><input type="url" id="wish-link" placeholder="https://..."></div>
+    </div>
+    <button class="btn-primary" onclick="addWish()">+ Add to Gift List</button>
+  </div>
+
+  <div id="wish-list"><div class="empty-state">Your gift list will build here 🎁</div></div>
+
+  <div class="app-footer">Crowned Daily 👑 · A Woman's Standard</div>
+</div>
+
+<!-- RUNNING LOW TAB -->
+<div id="tab-running-low" class="tab-panel" style="display:none;">
+  <div class="card">
+    <div class="card-title">🛒 Running Low List</div>
+    <div style="font-size:12px;color:var(--text-light);margin-bottom:10px;">Tap to add · Works for groceries, skincare, household, anything</div>
+
+    <div class="section-label">🥗 Groceries</div>
+    <div class="quick-grid">
+      <button class="quick-btn" onclick="addLow('Milk')">🥛 Milk</button>
+      <button class="quick-btn" onclick="addLow('Eggs')">🥚 Eggs</button>
+      <button class="quick-btn" onclick="addLow('Bread')">🍞 Bread</button>
+      <button class="quick-btn" onclick="addLow('Fruit')">🍎 Fruit</button>
+      <button class="quick-btn" onclick="addLow('Veggies')">🥦 Veggies</button>
+      <button class="quick-btn" onclick="addLow('Protein')">🍗 Protein</button>
+    </div>
+
+    <div class="section-label" style="margin-top:8px;">🧴 Skincare & Personal</div>
+    <div class="quick-grid">
+      <button class="quick-btn" onclick="addLow('Cleanser')">🧴 Cleanser</button>
+      <button class="quick-btn" onclick="addLow('Moisturizer')">💧 Moisturizer</button>
+      <button class="quick-btn" onclick="addLow('Serum')">✨ Serum</button>
+      <button class="quick-btn" onclick="addLow('SPF')">☀️ SPF</button>
+      <button class="quick-btn" onclick="addLow('Deodorant')">🌸 Deodorant</button>
+      <button class="quick-btn" onclick="addLow('Shampoo')">🚿 Shampoo</button>
+    </div>
+
+    <div class="section-label" style="margin-top:8px;">🏠 Household</div>
+    <div class="quick-grid">
+      <button class="quick-btn" onclick="addLow('Paper towels')">🧻 Paper towels</button>
+      <button class="quick-btn" onclick="addLow('Dish soap')">🫧 Dish soap</button>
+      <button class="quick-btn" onclick="addLow('Laundry')">👕 Laundry</button>
+      <button class="quick-btn" onclick="addLow('Trash bags')">🗑️ Trash bags</button>
+      <button class="quick-btn" onclick="addLow('Toilet paper')">🧻 Toilet paper</button>
+      <button class="quick-btn" onclick="addLow('Cleaning spray')">🧹 Cleaning spray</button>
+    </div>
+
+    <div class="section-label" style="margin-top:8px;">+ Custom</div>
+    <div style="display:flex;gap:8px;margin-bottom:12px;">
+      <input type="text" id="low-custom" placeholder="Add anything else...">
+      <button class="btn-secondary" onclick="addLowCustom()">Add</button>
+    </div>
+
+    <div id="low-list"><div class="empty-state">Nothing on the list — you are stocked up! 💕</div></div>
+  </div>
+
+  <div class="app-footer">Crowned Daily 👑 · A Woman's Standard</div>
+</div>
+
+<!-- JOURNAL TAB -->
+<div id="tab-journal" class="tab-panel" style="display:none;">
+
+  <div class="affirmation-card">
+    <div class="affirmation-label">📓 Evening Pages</div>
+    <div class="affirmation-text" id="journal-prompt" style="font-size:14px;">What is one thing today showed you about yourself?</div>
+  </div>
+
+  <div class="card">
+    <textarea id="journal-text" placeholder="Write freely here... this space is yours 💕" onchange="saveJournal()" style="min-height:150px;"></textarea>
+    <button class="btn-secondary" style="margin-top:8px;" onclick="nextJournalPrompt()">Next prompt →</button>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🌙 Evening Check-In</div>
+    <div class="tap-grid-4" style="margin-bottom:10px;">
+      <button class="tap-btn" onclick="tapSelect('eve-mood','Grateful',this)"><span class="tap-icon">🌟</span>Grateful</button>
+      <button class="tap-btn" onclick="tapSelect('eve-mood','Peaceful',this)"><span class="tap-icon">😌</span>Peaceful</button>
+      <button class="tap-btn" onclick="tapSelect('eve-mood','Tired',this)"><span class="tap-icon">😴</span>Tired</button>
+      <button class="tap-btn" onclick="tapSelect('eve-mood','Heavy',this)"><span class="tap-icon">😔</span>Heavy</button>
+    </div>
+    <div class="form-group">
+      <label class="form-label">One thing I am grateful for tonight</label>
+      <input type="text" id="eve-grateful" placeholder="Just one thing — fast and true..." onchange="saveField('eve-grateful')">
+    </div>
+    <div class="form-group">
+      <label class="form-label">What do I want to let go of today?</label>
+      <input type="text" id="eve-release" placeholder="Release it here..." onchange="saveField('eve-release')">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Reflection</label>
+      <textarea id="eve-reflection" placeholder="What is one thing today showed you about yourself?" onchange="saveField('eve-reflection')" style="min-height:60px;"></textarea>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📅 Weekly Self Check-In</div>
+    <div style="font-size:12px;color:var(--text-light);margin-bottom:8px;">How did I honor myself this week?</div>
+    <div class="tap-grid-2">
+      <button class="tap-btn" onclick="tapSelect('self-honor','Deeply',this)"><span class="tap-icon">💕</span>Deeply</button>
+      <button class="tap-btn" onclick="tapSelect('self-honor','Mostly',this)"><span class="tap-icon">😊</span>Mostly</button>
+      <button class="tap-btn" onclick="tapSelect('self-honor','Barely',this)"><span class="tap-icon">😮‍💨</span>Barely</button>
+      <button class="tap-btn" onclick="tapSelect('self-honor','Starting over',this)"><span class="tap-icon">🌱</span>Starting over</button>
+    </div>
+  </div>
+
+  <div class="app-footer">Crowned Daily 👑 · A Woman's Standard<br>Walking in purpose, covered by grace 🌸</div>
+</div>
+
+
+<!-- NOTES TAB -->
+<div id="tab-notes" class="tab-panel" style="display:none;">
+  <div class="card">
+    <div class="card-title">📝 My Notes</div>
+    <div style="font-size:12px;color:var(--text-light);margin-bottom:8px;">No labels. No structure. Just yours.</div>
+    <textarea id="notes-text" placeholder="Anything on your mind..." onchange="save('notes',this.value)" style="min-height:300px;"></textarea>
+  </div>
+  <div class="app-footer">Crowned Daily 👑 · A Woman's Standard</div>
+</div>
+
+</div><!-- end content -->
+
+<style>
+.check-box-sm { width: 22px; height: 22px; border-radius: 6px; border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; cursor: pointer; }
+.check-box-sm.checked { background: var(--rose); border-color: var(--rose); color: white; font-size: 12px; }
+.check-box-sm.checked::after { content: '✓'; }
+</style>
+
+<script>
+
+window.onerror = function(msg, src, line, col, err) {
+  console.error('Error:', msg, 'at line', line);
+  return true; // prevent default
+};
+
+
+// ===== STORAGE =====
+const TODAY = new Date();
+const todayKey = TODAY.toISOString().split('T')[0];
+function save(k,v){try{localStorage.setItem('cd_'+k,JSON.stringify(v));}catch(e){}}
+function load(k,d){try{const v=localStorage.getItem('cd_'+k);return v?JSON.parse(v):d;}catch(e){return d;}}
+
+// ===== CONTENT DATA =====
+const DECLARATIONS = [
+  "I am chosen, set apart, and walking in divine purpose.",
+  "God is opening doors that no man can shut — my season is now.",
+  "I am not behind. I am exactly where God needs me to be.",
+  "I declare that every delay in my life is working for my good.",
+  "I am a woman of excellence and I refuse to settle for less.",
+  "My steps are ordered by God and I will not be shaken.",
+  "I am the head and not the tail, above and not beneath.",
+  "I declare healing over my body, my mind, and my home.",
+  "I am attracting divine connections, opportunities, and abundance.",
+  "God has not given me a spirit of fear — I walk in power, love, and a sound mind.",
+  "I declare that this is my season of overflow and breakthrough.",
+  "My family is blessed, protected, and covered by the blood of Jesus.",
+  "I am a good mother, a loving wife, and a woman of God.",
+  "Every assignment against me is cancelled in Jesus name.",
+  "I declare financial freedom and provision over my household.",
+  "I am growing stronger, wiser, and more graceful every single day.",
+  "My future is bright and my best days are still ahead of me.",
+  "I declare that what God started in me He will complete.",
+  "I am not defined by my past — I am shaped by my purpose.",
+  "I declare peace that surpasses all understanding over my mind.",
+  "I am a woman who carries herself with dignity and grace.",
+  "I declare that I will not be anxious — I will trust God completely.",
+  "Every good thing God has promised me is on its way.",
+  "I am surrounded by favor and walking in supernatural blessings.",
+  "I declare that this year belongs to me and I will finish strong.",
+  "I am loved deeply, chosen specifically, and valued greatly.",
+  "I declare that my children are blessed and their futures are secured.",
+  "I walk in confidence because my confidence comes from God.",
+  "I declare that I am enough — right now, exactly as I am.",
+  "God is fighting every battle I cannot see — I will be still.",
+  "I declare that my marriage is a covenant blessed by God.",
+  "I am a woman who builds, not destroys — I create legacy.",
+  "I declare that prosperity and success follow me wherever I go.",
+  "My gifts are making room for me and bringing me before great people.",
+  "I declare that I am disciplined, focused, and unstoppable.",
+  "I am the woman my family needs me to be — and God equips me daily.",
+  "I declare restoration over everything the enemy has stolen from me.",
+  "I am walking into my next level with boldness and expectation.",
+  "I declare that my prayers are heard and my answers are coming.",
+  "I am a woman of standard — I know who I am and whose I am.",
+  "I declare divine wisdom and discernment in every decision I make.",
+  "I am planting seeds today that will produce a harvest tomorrow.",
+  "I declare that I am mentally strong, emotionally healthy, and spiritually grounded.",
+  "I am not just surviving this season — I am thriving in it.",
+  "I declare that everything I touch is blessed and everything I do prospers.",
+];
+
+const PRAYERS = [
+  "Father, thank you for waking me up today with purpose in my spirit. Order my steps.",
+  "Lord, I surrender today to you. Have your way in everything I touch.",
+  "God, give me wisdom today for every decision I face. I cannot do this without you.",
+  "Father, cover my children today. Let your angels surround them wherever they go.",
+  "Lord, strengthen my marriage. Help me be the wife and partner Samad needs.",
+  "God, give me patience today — with myself, with my family, and with your timing.",
+  "Father, I pray for provision. Every need in this house is met by your hand.",
+  "Lord, guard my mind today. Let no anxious thought take root in me.",
+  "God, open the right doors for me today and give me the courage to walk through them.",
+  "Father, let your peace rule in my home today. Let the atmosphere be set by your presence.",
+  "Lord, I pray for clarity on my next steps. Show me clearly which way to go.",
+  "God, heal everything in me that is broken — spirit, soul, and body.",
+  "Father, thank you for the gift of motherhood. Help me not take one moment for granted.",
+  "Lord, align me with the right people, the right opportunities, and the right timing.",
+  "God, protect my family from every assignment of the enemy today.",
+  "Father, I pray that my work today honors you. Let excellence flow through my hands.",
+  "Lord, remind me today that I am not alone — you are with me in every room I enter.",
+  "God, give me the grace to let go of what I cannot control and trust what you hold.",
+  "Father, I pray for rest tonight — real rest, not just sleep.",
+  "Lord, let my children see you in how I live today.",
+  "God, I pray for financial wisdom. Help me steward well what you have given me.",
+  "Father, renew my mind today. Replace every lie with your truth.",
+  "Lord, cover every interview, meeting, and opportunity coming my way.",
+  "God, I pray for my husband's purpose today. Let him feel seen and supported.",
+  "Father, pour into me so I have something to pour into others.",
+  "Lord, I pray against burnout. Restore my energy and my passion.",
+  "God, help me be present today — not distracted, not rushing, but fully here.",
+  "Father, I pray that every area of my life comes into alignment with your will.",
+  "Lord, I choose joy today even when it is hard. Your joy is my strength.",
+  "God, thank you for my story. Even the hard parts are working something beautiful.",
+  "Father, I pray for peace in every area where there has been tension.",
+  "Lord, make me sensitive to the needs around me today. Let me be a blessing.",
+  "God, I declare that this day will not be wasted. Every hour matters.",
+  "Father, I pray for confidence — not in myself but in who you say I am.",
+  "Lord, wherever I feel behind, remind me that your timing is always perfect.",
+  "God, I pray for my friendships. Surround me with people who push me toward you.",
+  "Father, let every seed I plant today come back as a harvest in due season.",
+  "Lord, I pray for Cambridge today. Cover his mind, his body, and his little spirit.",
+  "God, give me the right words to speak over my children today.",
+  "Father, I surrender the things I've been carrying. They are yours now.",
+  "Lord, let my home be a place of peace, love, and the presence of God.",
+  "God, thank you for my health. I do not take it for granted.",
+  "Father, I pray for divine strategies today — show me a better way.",
+  "Lord, I commit this month to you. Let every week count.",
+  "God, I am grateful. Even in the waiting, I will praise you.",
+];
+
+const SCRIPTURES = [
+  {text:'"She is clothed with strength and dignity, and she laughs without fear of the future."', ref:'Proverbs 31:25'},
+  {text:'"Trust in the Lord with all your heart and lean not on your own understanding."', ref:'Proverbs 3:5'},
+  {text:'"I can do all things through Christ who strengthens me."', ref:'Philippians 4:13'},
+  {text:'"For I know the plans I have for you, plans to prosper you and not to harm you."', ref:'Jeremiah 29:11'},
+  {text:'"God is within her, she will not fall; God will help her at break of day."', ref:'Psalm 46:5'},
+  {text:'"Be anxious for nothing, but in everything by prayer let your requests be made known."', ref:'Philippians 4:6'},
+  {text:'"And we know that all things work together for good to those who love God."', ref:'Romans 8:28'},
+  {text:'"The Lord is my shepherd; I shall not want."', ref:'Psalm 23:1'},
+  {text:'"Commit to the Lord whatever you do, and He will establish your plans."', ref:'Proverbs 16:3'},
+  {text:'"Be strong and courageous. Do not be afraid; do not be discouraged."', ref:'Joshua 1:9'},
+  {text:'"No weapon formed against you shall prosper."', ref:'Isaiah 54:17'},
+  {text:'"The Lord will fight for you; you need only to be still."', ref:'Exodus 14:14'},
+  {text:'"Blessed is she who has believed that the Lord would fulfill His promises to her."', ref:'Luke 1:45'},
+  {text:'"I praise you because I am fearfully and wonderfully made."', ref:'Psalm 139:14'},
+  {text:'"She opens her mouth with wisdom, and the teaching of kindness is on her tongue."', ref:'Proverbs 31:26'},
+  {text:'"Cast all your anxiety on Him because He cares for you."', ref:'1 Peter 5:7'},
+  {text:'"Do not conform to the pattern of this world, but be transformed by the renewing of your mind."', ref:'Romans 12:2'},
+  {text:'"With God all things are possible."', ref:'Matthew 19:26'},
+  {text:'"The Lord bless you and keep you; the Lord make His face shine on you."', ref:'Numbers 6:24-25'},
+  {text:'"Even youths grow tired and weary, but those who hope in the Lord will renew their strength."', ref:'Isaiah 40:31'},
+  {text:'"Whatever you do, work at it with all your heart, as working for the Lord."', ref:'Colossians 3:23'},
+  {text:'"Seek first the kingdom of God and His righteousness, and all these things will be added."', ref:'Matthew 6:33'},
+  {text:'"Your word is a lamp to my feet and a light to my path."', ref:'Psalm 119:105'},
+  {text:'"Delight yourself in the Lord and He will give you the desires of your heart."', ref:'Psalm 37:4'},
+  {text:'"Be still and know that I am God."', ref:'Psalm 46:10'},
+  {text:'"The Lord is close to the brokenhearted and saves those who are crushed in spirit."', ref:'Psalm 34:18'},
+  {text:'"You are altogether beautiful, my darling; there is no flaw in you."', ref:'Song of Solomon 4:7'},
+  {text:'"She is more precious than rubies; nothing you desire can compare with her."', ref:'Proverbs 3:15'},
+  {text:'"For we walk by faith, not by sight."', ref:'2 Corinthians 5:7'},
+  {text:'"Call to me and I will answer you and tell you great and unsearchable things."', ref:'Jeremiah 33:3'},
+  {text:'"The name of the Lord is a strong tower; the righteous run to it and are safe."', ref:'Proverbs 18:10'},
+  {text:'"In all your ways acknowledge Him, and He will make your paths straight."', ref:'Proverbs 3:6'},
+  {text:'"He gives strength to the weary and increases the power of the weak."', ref:'Isaiah 40:29'},
+  {text:'"Do not be afraid, for I am with you; do not be dismayed, for I am your God."', ref:'Isaiah 41:10'},
+  {text:'"Those who look to Him are radiant; their faces are never covered with shame."', ref:'Psalm 34:5'},
+  {text:'"A cheerful heart is good medicine."', ref:'Proverbs 17:22'},
+  {text:'"Let your light shine before others, that they may see your good deeds."', ref:'Matthew 5:16'},
+  {text:'"I have set the Lord always before me. Because He is at my right hand, I will not be shaken."', ref:'Psalm 16:8'},
+  {text:'"Wait on the Lord; be of good courage, and He shall strengthen your heart."', ref:'Psalm 27:14'},
+  {text:'"The Lord your God is the one who goes with you. He will not fail you."', ref:'Deuteronomy 31:6'},
+  {text:'"Trust in the Lord forever, for the Lord God is an everlasting rock."', ref:'Isaiah 26:4'},
+  {text:'"Create in me a clean heart, O God, and renew a right spirit within me."', ref:'Psalm 51:10'},
+  {text:'"Hope deferred makes the heart sick, but a longing fulfilled is a tree of life."', ref:'Proverbs 13:12'},
+  {text:'"The heart of man plans his way, but the Lord establishes his steps."', ref:'Proverbs 16:9'},
+  {text:'"Sovereign Lord, you are God! Your covenant is trustworthy."', ref:'2 Samuel 7:28'},
+];
+
+const AFFIRMATIONS = [
+  "I am a woman of God, purpose, and power.",
+  "I lead my family with love and wisdom.",
+  "I am enough today — in this moment, exactly as I am.",
+  "My best is always enough and God fills in the rest.",
+  "I attract favor, blessings, and divine connections.",
+  "I am calm, grounded, and fully present.",
+  "I walk in confidence because I know whose I am.",
+  "I am a good mother and my children are blessed because of me.",
+  "My mind is clear, my heart is at peace, and my spirit is strong.",
+  "I am worthy of rest, joy, and everything good coming my way.",
+  "I show up fully — at work, at home, and for myself.",
+  "I am disciplined, focused, and making progress every single day.",
+  "I release what I cannot control and trust God completely.",
+  "My marriage is a blessing and I nurture it with intention.",
+  "I am not just surviving — I am thriving in this season.",
+  "Every day I become more of the woman God created me to be.",
+  "I am resilient. I bend but I do not break.",
+  "I invest in myself because I am worth the investment.",
+  "I speak life, love, and truth over everything I touch.",
+  "I am building something that matters and it starts right here.",
+  "My home is a sanctuary of peace, love, and God's presence.",
+  "I forgive myself quickly and I keep moving forward.",
+  "I am a woman of standard — I know what I deserve.",
+  "My purpose is unfolding perfectly in God's timing.",
+  "I take care of my body because it is my temple.",
+  "I am organized, capable, and excellent at what I do.",
+  "I lead with grace even when it is hard.",
+  "I am grateful for this life — even the messy, hard, beautiful parts.",
+  "I walk in divine health, divine provision, and divine protection.",
+  "I am LaLa — crowned, covered, and called.",
+];
+
+const GRATITUDE_OPTIONS = [
+  'My faith', 'My health', 'My children', 'My home', 'My marriage',
+  'My career', 'My growth', 'Rest', 'Provision', 'Peace',
+  'My purpose', 'Family', 'Friendship', 'A new day', 'God\'s grace',
+  'Progress', 'My mind', 'Laughter', 'Love', 'My peace',
+];
+
+const JOURNAL_PROMPTS = [
+  'What is one thing today showed you about yourself?',
+  'What do I want to let go of before tomorrow?',
+  'What is one thing I am proud of today?',
+  'Where did I feel most like myself today?',
+  'What is God trying to teach me in this season?',
+  'What would I tell my daughter about today?',
+  'What does rest look like for me right now?',
+  'What is one thing I want to do differently tomorrow?',
+  'Where did I see God move today — even in a small way?',
+  'What am I holding onto that I need to release?',
+  'What would my best self do tomorrow morning?',
+  'Who needs me to show up better and how can I do that?',
+];
+
+const CAT_COLORS = {work:'#1565C0',personal:'#C2185B',londyn:'#E91E8C',cambridge:'#F9A825',family:'#6A1B9A',medical:'#2E7D32',['self-care']:'#880E4F',faith:'#B8860B'};
+const CAT_LABELS = {work:'💼 Work',personal:'🌸 Personal',londyn:'🌸 Londyn',cambridge:'🌟 Cambridge',family:'💕 Family',medical:'🏥 Medical',['self-care']:'💆🏾 Self Care',faith:'🙏 Faith'};
+const TASK_CAT_COLORS = {home:'#E65100',myloves:'#C2185B',work:'#1565C0',personal:'#880E4F',appointments:'#2E7D32',errands:'#F9A825',samad:'#6A1B9A'};
+const TASK_CAT_LABELS = {home:'🏠 Home',myloves:'💕 My Loves',work:'💼 Work',personal:'🌸 Personal',appointments:'📅 Appointments',errands:'🛒 Errands',samad:'💝 Samad'};
+
+// ===== STATE =====
+let declIdx = load('decl-idx', 0);
+let prayerIdx = load('prayer-idx', 0);
+let scriptureIdx = load('scripture-idx', 0);
+let journalPromptIdx = load('journal-prompt-idx', 0);
+let calYear = TODAY.getFullYear();
+let calMonth = TODAY.getMonth();
+let selectedCalDay = null;
+let tasks = load('tasks', []);
+let lowList = load('low-list', []);
+let events = load('events', []);
+let supplements = load('supplements', []);
+let londynAssignments = load('londyn-assignments', []);
+let wins = load('wins', []);
+
+
+
+// ===== CYCLE TRACKER =====
+let cycleLog = load('cycle-log',[]);
+function saveCycleDate() {
+  save('cycle-start', document.getElementById('cycle-start').value);
+  save('cycle-end', document.getElementById('cycle-end').value);
+}
+function saveCycleNotes() { save('cycle-notes-'+todayKey, document.getElementById('cycle-notes').value); }
+function logCycleEntry() {
+  const start = document.getElementById('cycle-start').value;
+  const end = document.getElementById('cycle-end').value;
+  const notes = document.getElementById('cycle-notes').value;
+  const phase = load('tap-cycle-'+todayKey,'');
+  if(!start && !phase) { alert('Please select a phase or start date.'); return; }
+  cycleLog.unshift({id:Date.now(),date:todayKey,start,end,phase,notes});
+  save('cycle-log',cycleLog);
+  renderCycleLog();
+}
+function renderCycleLog() {
+  const el = document.getElementById('cycle-log');
+  if(!el) return;
+  if(!cycleLog.length){el.innerHTML='<div class="empty-state">Your cycle history will build here</div>';return;}
+  el.innerHTML = cycleLog.slice(0,6).map(e=>`<div class="log-entry">${e.phase||'Phase logged'} ${e.start?'· Started '+e.start:''} ${e.end?'· Ended '+e.end:''} ${e.notes?'<br><em>'+e.notes+'</em>':''}<div class="log-date">${e.date}</div></div>`).join('');
+}
+function loadCycleData() {
+  const start = load('cycle-start','');
+  const notes = load('cycle-notes-'+todayKey,'');
+  const end = load('cycle-end','');
+  if(start){ const el=document.getElementById('cycle-start'); if(el) el.value=start; }
+  if(end){ const el=document.getElementById('cycle-end'); if(el) el.value=end; }
+  if(notes){ const el=document.getElementById('cycle-notes'); if(el) el.value=notes; }
+  renderCycleLog();
+}
+
+// ===== MOOD HISTORY =====
+const FEELING_ICONS = {'Thriving':'✨','Good':'🌸','Okay':'🌧️','Low':'😴'};
+function renderMoodHistory() {
+  const el = document.getElementById('mood-history');
+  if(!el) return;
+  const days = [];
+  for(let i=6;i>=0;i--) { const d=new Date(TODAY); d.setDate(d.getDate()-i); days.push(d); }
+  el.innerHTML = days.map(d => {
+    const key = d.toISOString().split('T')[0];
+    const feeling = load('tap-feeling-'+key,'');
+    const icon = FEELING_ICONS[feeling] || '○';
+    const label = d.toLocaleDateString('en-US',{weekday:'short'}).slice(0,2);
+    return `<div style="text-align:center;"><div style="width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--blush);display:flex;align-items:center;justify-content:center;font-size:16px;">${icon}</div><div style="font-size:9px;color:var(--text-light);margin-top:2px;">${label}</div></div>`;
+  }).join('');
+}
+
+// ===== CAMBRIDGE MILESTONES =====
+let camMilestones = load('cam-milestones',[]);
+function addCamMilestone() {
+  const val = document.getElementById('cam-moment-input').value.trim();
+  if(!val) return;
+  camMilestones.unshift({text:val,date:todayKey,id:Date.now()});
+  save('cam-milestones',camMilestones);
+  document.getElementById('cam-moment-input').value='';
+  renderCamMilestones();
+}
+function renderCamMilestones() {
+  const el = document.getElementById('cam-milestones');
+  if(!el) return;
+  if(!camMilestones.length){el.innerHTML='<div class="empty-state">His milestone jar will fill up here 💛</div>';return;}
+  el.innerHTML = camMilestones.slice(0,8).map(m=>`<div style="background:var(--blush);border-radius:10px;padding:10px 12px;margin-bottom:6px;border-left:3px solid #C4A882;font-size:13px;">💛 ${m.text}<div style="font-size:10px;color:var(--text-light);margin-top:3px;">${m.date}</div></div>`).join('');
+}
+
+// ===== SAMAD MEMORIES =====
+let samadMemories = load('samad-memories',[]);
+function addSamadMemory() {
+  const val = document.getElementById('samad-gratitude-input').value.trim();
+  if(!val) return;
+  samadMemories.unshift({text:val,date:todayKey,id:Date.now()});
+  save('samad-memories',samadMemories);
+  document.getElementById('samad-gratitude-input').value='';
+  renderSamadMemories();
+}
+function renderSamadMemories() {
+  const el = document.getElementById('samad-memories');
+  if(!el) return;
+  if(!samadMemories.length){el.innerHTML='<div class="empty-state">Your love log will build here 💕</div>';return;}
+  el.innerHTML = samadMemories.slice(0,6).map(m=>`<div style="background:var(--blush);border-radius:10px;padding:10px 12px;margin-bottom:6px;border-left:3px solid var(--rose);font-size:13px;">💕 ${m.text}<div style="font-size:10px;color:var(--text-light);margin-top:3px;">${m.date}</div></div>`).join('');
+}
+
+
+// ===== CAMBRIDGE TASKS =====
+let camTasks = load('cam-tasks',[]);
+function addCamTask() {
+  const name = document.getElementById('cam-task-input').value.trim();
+  if(!name) return;
+  camTasks.push({id:Date.now(),name,date:document.getElementById('cam-task-date').value,done:false});
+  save('cam-tasks',camTasks);
+  document.getElementById('cam-task-input').value='';
+  document.getElementById('cam-task-date').value='';
+  renderCamTasks();
+}
+function toggleCamTask(id){camTasks=camTasks.map(t=>t.id===id?{...t,done:!t.done}:t);save('cam-tasks',camTasks);renderCamTasks();}
+function renderCamTasks() {
+  const el = document.getElementById('cam-tasks-list');
+  if(!el) return;
+  if(!camTasks.length){el.innerHTML='<div class="empty-state">No tasks yet</div>';return;}
+  el.innerHTML = camTasks.map(t=>`<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);"><div class="check-box-sm ${t.done?'checked':''}" onclick="toggleCamTask(${t.id})"></div><div style="flex:1;font-size:13px;${t.done?'text-decoration:line-through;color:var(--text-light);':''};">${t.name}${t.date?' <span style="font-size:11px;color:var(--text-light);">· '+t.date+'</span>':''}</div></div>`).join('');
+}
+
+// ===== ANSWERED PRAYERS =====
+let answeredPrayers = load('answered-prayers',[]);
+function addAnsweredPrayer() {
+  const val = document.getElementById('answered-prayer-input').value.trim();
+  if(!val) return;
+  answeredPrayers.unshift({text:val,date:todayKey,id:Date.now()});
+  save('answered-prayers',answeredPrayers);
+  document.getElementById('answered-prayer-input').value='';
+  renderAnsweredPrayers();
+}
+function renderAnsweredPrayers() {
+  const el = document.getElementById('answered-prayers-list');
+  if(!el) return;
+  if(!answeredPrayers.length){el.innerHTML='<div class="empty-state">Your testimony wall will build here 🙏</div>';return;}
+  el.innerHTML = answeredPrayers.map(p=>`<div style="background:linear-gradient(135deg,#F0F8F0,#F5FAF0);border-radius:10px;padding:12px;margin-bottom:6px;border-left:3px solid var(--green);"><div style="font-size:13px;font-style:italic;color:var(--text-dark);">🎉 ${p.text}</div><div style="font-size:10px;color:var(--text-light);margin-top:3px;">${p.date}</div></div>`).join('');
+}
+
+// ===== GOALS =====
+let goals = load('goals',[]);
+const GOAL_CAT_ICONS = {education:'🎓',gift:'🎁',travel:'✈️',home:'🏠',personal:'👑',beauty:'💄',justbecause:'🌸'};
+function addGoal() {
+  const name = document.getElementById('goal-name').value.trim();
+  if(!name) return;
+  goals.push({id:Date.now(),name,target:parseFloat(document.getElementById('goal-target').value)||0,saved:0,date:document.getElementById('goal-date').value,cat:document.getElementById('goal-cat').value});
+  save('goals',goals);
+  document.getElementById('goal-name').value='';
+  document.getElementById('goal-target').value='';
+  document.getElementById('goal-date').value='';
+  renderGoals();
+}
+function addToGoal(id,amt){goals=goals.map(g=>g.id===id?{...g,saved:Math.min(g.saved+(parseFloat(amt)||0),g.target)}:g);save('goals',goals);renderGoals();}
+function deleteGoal(id){goals=goals.filter(g=>g.id!==id);save('goals',goals);renderGoals();}
+function renderGoals() {
+  const el = document.getElementById('goals-list');
+  if(!el) return;
+  if(!goals.length){el.innerHTML='<div class="empty-state">No saving goals yet 💕</div>';return;}
+  el.innerHTML = goals.map(g=>{
+    const pct = g.target>0?Math.min(Math.round(g.saved/g.target*100),100):0;
+    const icon = GOAL_CAT_ICONS[g.cat]||'🎯';
+    const done = pct>=100;
+    return `<div style="background:white;border-radius:12px;padding:14px;margin-bottom:8px;border:1px solid var(--border);">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <div><div style="font-size:15px;font-weight:700;color:var(--text-dark);">${icon} ${g.name}</div>
+        <div style="font-size:12px;color:var(--text-mid);margin-top:2px;">$${g.saved.toFixed(2)} of $${g.target.toFixed(2)}${g.date?' · '+g.date:''}</div></div>
+        <button onclick="deleteGoal(${g.id})" style="background:none;border:none;color:var(--text-light);cursor:pointer;">🗑</button>
+      </div>
+      <div class="prog-bar"><div class="prog-fill" style="width:${pct}%;${done?'background:linear-gradient(90deg,var(--green),#7AB88A)':''}"></div></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;">
+        <span style="font-size:12px;color:${done?'var(--green)':'var(--text-light)'};">${done?'🎉 Goal reached!':pct+'% saved'}</span>
+        ${!done?`<div style="display:flex;gap:6px;"><input type="number" placeholder="Add $" style="width:80px;padding:6px 8px;font-size:12px;border:1px solid var(--border);border-radius:8px;background:var(--blush);" id="gadd-${g.id}"><button class="btn-secondary" style="padding:6px 10px;font-size:12px;" onclick="addToGoal(${g.id},document.getElementById('gadd-${g.id}').value)">Add</button></div>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ===== WISH LIST =====
+let wishList = load('wish-list',[]);
+function addWish() {
+  const name = document.getElementById('wish-name').value.trim();
+  if(!name) return;
+  wishList.push({id:Date.now(),name,for:document.getElementById('wish-for').value,occasion:document.getElementById('wish-occasion').value,price:parseFloat(document.getElementById('wish-price').value)||0,link:document.getElementById('wish-link').value,purchased:false});
+  save('wish-list',wishList);
+  document.getElementById('wish-name').value='';
+  document.getElementById('wish-price').value='';
+  document.getElementById('wish-link').value='';
+  renderWishList();
+}
+function toggleWishPurchased(id){wishList=wishList.map(w=>w.id===id?{...w,purchased:!w.purchased}:w);save('wish-list',wishList);renderWishList();}
+function deleteWish(id){wishList=wishList.filter(w=>w.id!==id);save('wish-list',wishList);renderWishList();}
+function renderWishList() {
+  const el = document.getElementById('wish-list');
+  if(!el) return;
+  if(!wishList.length){el.innerHTML='<div class="empty-state">Your gift list will build here 🎁</div>';return;}
+  el.innerHTML = wishList.map(w=>`<div style="background:white;border-radius:12px;padding:14px;margin-bottom:8px;border:1px solid var(--border);${w.purchased?'opacity:0.6':''}">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div style="flex:1;">
+        <div style="font-size:14px;font-weight:700;color:var(--text-dark);${w.purchased?'text-decoration:line-through;':''}">🎁 ${w.name}</div>
+        <div style="font-size:12px;color:var(--text-mid);margin-top:2px;">${w.for} · ${w.occasion}${w.price?' · $'+w.price.toFixed(2):''}</div>
+        ${w.link?`<a href="${w.link}" target="_blank" style="font-size:12px;color:var(--blue);text-decoration:underline;display:block;margin-top:4px;">🔗 View item</a>`:''}
+      </div>
+      <div style="display:flex;gap:6px;align-items:center;">
+        <div class="check-box-sm ${w.purchased?'checked':''}" onclick="toggleWishPurchased(${w.id})" title="${w.purchased?'Purchased ✓':'Mark purchased'}"></div>
+        <button onclick="deleteWish(${w.id})" style="background:none;border:none;color:var(--text-light);cursor:pointer;">🗑</button>
+      </div>
+    </div>
+  </div>`).join('');
+}
+
+// ===== LETTER TO FUTURE LALA =====
+let letters = load('letters',[]);
+function saveLetter() {
+  const text = document.getElementById('letter-text')?.value.trim();
+  const month = document.getElementById('letter-month')?.value;
+  if(!text) return;
+  letters = letters.filter(l=>l.month!==month);
+  letters.unshift({text,month,id:Date.now()});
+  save('letters',letters);
+  document.getElementById('letter-text').value='';
+  renderLetters();
+  alert('Letter saved 💌');
+}
+function renderLetters() {
+  const el = document.getElementById('letters-log');
+  if(!el) return;
+  if(!letters.length){el.innerHTML='<div class="empty-state">Your letters will build here 💌</div>';return;}
+  el.innerHTML = letters.map(l=>`<div style="background:var(--warm);border-radius:10px;padding:12px;margin-bottom:8px;border-left:3px solid var(--mauve);"><strong style="font-size:12px;color:var(--text-mid);">${l.month}</strong><div style="font-size:13px;color:var(--text-dark);margin-top:4px;font-style:italic;">${l.text.slice(0,120)}${l.text.length>120?'...':''}</div></div>`).join('');
+}
+
+
+// ===== PRE-POPULATED MONTHLY CONTENT =====
+
+const CYCLE_PRAYERS = [
+  'Lord, I thank you for this body you created. Heal every area that needs healing and strengthen what needs strengthening. Let me honor you in how I care for myself.',
+  'Father, in this season of my cycle, give me patience with my body. What I feel right now is temporary. You are with me in every phase.',
+  'God, thank you for the gift of womanhood. Even in the hard days of this cycle, remind me that my body is fearfully and wonderfully made.',
+  'Lord, I pray for rest during this phase. Give me the grace to slow down without guilt. My body is doing exactly what it was designed to do.',
+  'Father, ease any discomfort I am carrying. You are the God who heals and restores. I trust you with my body today.',
+  'God, give me energy and clarity in this phase. Let my mind be sharp and my spirit be light. I am grateful for how you designed me.',
+  'Lord, I pray for hormonal balance, emotional steadiness, and physical strength. I am not at the mercy of my cycle — I am covered by your grace.',
+  'Father, help me listen to my body today. Show me what it needs — rest, nourishment, movement, or stillness. I honor the body you gave me.',
+  'God, in the days when I feel most like myself, let me use that energy for what matters. And in the hard days, let your strength carry me.',
+  'Lord, I pray for my reproductive health. I trust you as the designer of my body. What you created is good.',
+  'Father, remove any shame I carry about my body or my cycle. You made me whole and complete. I walk in that truth today.',
+  'God, thank you for the wisdom my body holds. Help me tune into it, honor it, and take care of it as the temple you designed it to be.',
+];
+let cyclePrayerIdx = load('cycle-prayer-idx', 0);
+function getCyclePrayerAll() { return [...CYCLE_PRAYERS, ...load('custom-cycle-prayers',[])]; }
+function renderCyclePrayer() {
+  const el = document.getElementById('cycle-prayer-text');
+  if(!el) return;
+  const all = getCyclePrayerAll();
+  el.textContent = all[cyclePrayerIdx % all.length];
+}
+
+const MONTHLY_THEMES = ['Peace','Discipline','Trust','Abundance','Grace','Surrender','Overflow','Alignment','Boldness','Purpose','Restoration','Excellence'];
+const MONTHLY_CHAPTERS = ['Proverbs 31','Psalm 91','Isaiah 40','Romans 8','Joshua 1','Psalm 23','Philippians 4','Jeremiah 29','Matthew 6','Psalm 139','Isaiah 43','Colossians 3'];
+const MONTHLY_DECLARATIONS_PRESET = [
+  'This month I am believing for God to shift things in my favor. Every door meant for me is opening, every delay is working for my good, and I am walking into overflow.',
+  'This month I declare that I will not be moved by what I see. I walk by faith and not by sight. God is working all things together for my good.',
+  'This month I declare peace over my mind, my home, and my family. No weapon formed against us shall prosper. We are covered.',
+  'This month I declare discipline over my time, my body, and my spirit. I am intentional, focused, and building something that matters.',
+  'This month I declare that I am enough. I release comparison and walk in confidence. God chose me specifically for this season.',
+  'This month I declare restoration over everything the enemy has stolen. What was lost is being returned. My latter will be greater.',
+  'This month I surrender my plans and trust God's timing. His way is better than mine. I will rest in what He is doing.',
+  'This month I declare abundance — in my finances, my relationships, my health, and my peace. The Lord is my shepherd, I shall not want.',
+  'This month I declare that I am aligned with my purpose. Every step I take is ordered by God. I will not walk in confusion.',
+  'This month I declare that I am bold. I will not shrink back from opportunities God has placed before me. I was made for this.',
+  'This month I declare excellence in everything I touch. I represent God in how I work, how I mother, and how I love.',
+  'This month I choose joy. Not because everything is perfect, but because God is faithful and His mercies are new every morning.',
+];
+
+function getMonthIndex() {
+  return TODAY.getMonth();
+}
+function prePopulateMonthlyContent() {
+  const idx = getMonthIndex();
+  const storedTheme = load('month-theme','');
+  const storedChapter = load('month-chapter','');
+  const storedDecl = load('monthly-declaration','');
+  if(!storedTheme) {
+    const t = MONTHLY_THEMES[idx];
+    save('month-theme', t);
+    const el = document.getElementById('month-theme');
+    if(el) el.value = t;
+  }
+  if(!storedChapter) {
+    const c = MONTHLY_CHAPTERS[idx];
+    save('month-chapter', c);
+    const el = document.getElementById('month-chapter');
+    if(el) el.value = c;
+  }
+  if(!storedDecl) {
+    const d = MONTHLY_DECLARATIONS_PRESET[idx];
+    save('monthly-declaration', d);
+    const el = document.getElementById('monthly-declaration');
+    if(el) el.value = d;
+  }
+  updateGlance();
+}
+
+// ===== INIT =====
+function init() {
+  const steps = [
+    ()=>{ const el=document.getElementById('header-date'); if(el) el.textContent=TODAY.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'}); },
+    loadMonthSettings, prePopulateMonthlyContent, loadRotating, loadGratitude,
+    loadToggles, loadFields, initWater, loadSleep, loadMovement,
+    renderSupplements, loadSkincare, loadCycleData, renderCycleLog,
+    renderTasks, renderLow, renderCalendar, renderLondynAssignments, renderWins, loadJournal, loadTop3,
+    updateStreak, updateGlance,
+    ()=>{ const el=document.getElementById('ev-date'); if(el) el.value=todayKey; },
+    ()=>{ const el=document.getElementById('letter-month'); if(el) el.value=todayKey.slice(0,7); },
+    ()=>{ const el=document.getElementById('notes-text'); const v=load('notes',''); if(el&&v) el.value=v; },
+    renderMoodHistory, renderCamMilestones, renderCamTasks,
+    renderSamadMemories, renderAnsweredPrayers, renderGoals,
+    renderWishList, renderLetters, setDailyTapSelections,
+    ()=>{ window.scrollTo(0,0); }
+  ];
+  steps.forEach((fn,i) => { try { fn(); } catch(e) { console.warn('Init step '+i+' failed:', e.message); } });
+}
+
+// ===== MONTH SETTINGS =====
+function loadMonthSettings() {
+  const theme = load('month-theme', '');
+  const chapter = load('month-chapter', '');
+  const decl = load('monthly-declaration', '');
+  const intention = load('prayer-intention', '');
+  if(theme) document.getElementById('month-theme').value = theme;
+  if(chapter) document.getElementById('month-chapter').value = chapter;
+  if(decl) document.getElementById('monthly-declaration').value = decl;
+  if(intention) document.getElementById('prayer-intention').value = intention;
+  updateGlance();
+}
+function saveMonthTheme() { const v=document.getElementById('month-theme').value; save('month-theme',v); updateGlance(); }
+function saveMonthChapter() { const v=document.getElementById('month-chapter').value; save('month-chapter',v); updateGlance(); }
+function saveDeclaration() { save('monthly-declaration', document.getElementById('monthly-declaration').value); }
+function savePrayerIntention() { save('prayer-intention', document.getElementById('prayer-intention').value); }
+
+function updateGlance() {
+  const theme = load('month-theme','');
+  const chapter = load('month-chapter','');
+  const streak = load('streak',0);
+  const top3 = load('top3-'+todayKey,{});
+  document.getElementById('glance-theme-word').textContent = theme || '— Set your word —';
+  document.getElementById('month-theme-header').textContent = theme || 'Set your theme';
+  document.getElementById('glance-chapter').textContent = chapter || 'Not set';
+  document.getElementById('glance-streak').textContent = streak;
+  document.getElementById('glance-affirmation').textContent = AFFIRMATIONS[Math.floor((TODAY-new Date(TODAY.getFullYear(),TODAY.getMonth(),1))/86400000) % AFFIRMATIONS.length];
+  document.getElementById('daily-affirmation').textContent = AFFIRMATIONS[Math.floor((TODAY-new Date(TODAY.getFullYear(),TODAY.getMonth(),1))/86400000) % AFFIRMATIONS.length];
+  document.getElementById('glance-priority').textContent = top3.p1 || 'Not set yet';
+}
+
+// ===== ROTATING CONTENT =====
+function loadRotating() {
+  const dayNum = Math.floor((TODAY - new Date(2026,4,31)) / 86400000);
+  declIdx = load('decl-idx', dayNum % DECLARATIONS.length);
+  prayerIdx = load('prayer-idx', dayNum % PRAYERS.length);
+  scriptureIdx = load('scripture-idx', dayNum % SCRIPTURES.length);
+  renderDeclaration();
+  renderPrayer();
+  renderScripture();
+}
+function renderDeclaration() { document.getElementById('daily-declaration').textContent = getAllDeclarations()[declIdx % getAllDeclarations().length]; }
+function renderPrayer() { document.getElementById('daily-prayer').textContent = getAllPrayers()[prayerIdx % getAllPrayers().length]; }
+function renderScripture() {
+  const all = getAllScriptures();
+  const s = all[scriptureIdx % all.length];
+  document.getElementById('daily-scripture').textContent = s.text || s;
+  document.getElementById('daily-scripture-ref').textContent = s.ref || '';
+}
+function getAllDeclarations() { return [...DECLARATIONS, ...load('custom-declarations', [])]; }
+function getAllPrayers() { return [...PRAYERS, ...load('custom-prayers', [])]; }
+function getAllScriptures() { return [...SCRIPTURES, ...load('custom-scriptures', []).map(s=>({text:s,ref:''}))]; }
+function prevItem(type) { if(type==='declaration'){declIdx=(declIdx-1+getAllDeclarations().length)%getAllDeclarations().length;save('decl-idx',declIdx);renderDeclaration();} else if(type==='prayer'){prayerIdx=(prayerIdx-1+getAllPrayers().length)%getAllPrayers().length;save('prayer-idx',prayerIdx);renderPrayer();} else{scriptureIdx=(scriptureIdx-1+getAllScriptures().length)%getAllScriptures().length;save('scripture-idx',scriptureIdx);renderScripture();} }
+function nextItem(type) { if(type==='declaration'){declIdx=(declIdx+1)%getAllDeclarations().length;save('decl-idx',declIdx);renderDeclaration();} else if(type==='prayer'){prayerIdx=(prayerIdx+1)%getAllPrayers().length;save('prayer-idx',prayerIdx);renderPrayer();} else{scriptureIdx=(scriptureIdx+1)%getAllScriptures().length;save('scripture-idx',scriptureIdx);renderScripture();} }
+function addCustomItem(type) {
+  const val = prompt(type==='declaration'?'Enter your declaration:':type==='prayer'?'Enter your prayer:':'Enter your scripture:');
+  if(!val) return;
+  const key = 'custom-'+type+'s';
+  const arr = load(key,[]);
+  arr.push(val);
+  save(key,arr);
+  alert('Added! Tap Next → to find it at the end of the list.');
+}
+
+// ===== GRATITUDE =====
+function loadGratitude() {
+  const grid = document.getElementById('gratitude-grid');
+  const selected = load('gratitude-'+todayKey, []);
+  grid.innerHTML = GRATITUDE_OPTIONS.slice(0,15).map(g =>
+    `<button class="grat-btn ${selected.includes(g)?'selected':''}" onclick="toggleGratitude('${g}',this)">${g}</button>`
+  ).join('');
+  const custom = load('grat-custom-'+todayKey,'');
+  if(custom) document.getElementById('grat-custom').value = custom;
+}
+function toggleGratitude(g, btn) {
+  let selected = load('gratitude-'+todayKey,[]);
+  if(selected.includes(g)) selected=selected.filter(s=>s!==g); else selected.push(g);
+  save('gratitude-'+todayKey, selected);
+  btn.classList.toggle('selected');
+}
+function saveGratCustom() { save('grat-custom-'+todayKey, document.getElementById('grat-custom').value); }
+
+// ===== TAP SELECT =====
+function tapSelect(group, value, btn) {
+  const parent = btn.closest('.card,.family-member-card');
+  if(parent) parent.querySelectorAll(`.tap-btn[onclick*="'${group}'"]`).forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  save('tap-'+group+'-'+todayKey, value);
+  if(group==='intention') { document.getElementById('intention-custom').value=''; }
+}
+function setDailyTapSelections() {
+  const groups = ['feeling','mom-energy','body','cycle','work-energy','job-search','just-me','intention','home-pulse','londyn-mood','cam-mood','marriage','samad-connect','eve-mood','self-honor'];
+  groups.forEach(g => {
+    const val = load('tap-'+g+'-'+todayKey,'');
+    if(val) {
+      document.querySelectorAll(`.tap-btn[onclick*="'${g}'"]`).forEach(b => {
+        if(b.textContent.includes(val)) b.classList.add('selected');
+      });
+    }
+  });
+}
+
+// ===== TOGGLES =====
+function saveToggle(id) { const el=document.getElementById(id); if(el) save('toggle-'+id+'-'+todayKey, el.checked); }
+function loadToggles() {
+  ['prayed-today','read-scripture','wine-moment','eve-supplements','cam-read','cam-morning','cam-bedtime','sm-here'].forEach(id => {
+    const v=load('toggle-'+id+'-'+todayKey,false);
+    const el=document.getElementById(id);
+    if(el) el.checked=v;
+  });
+}
+
+// ===== CHECK BOXES =====
+function toggleCheck(id) {
+  const el=document.getElementById(id);
+  if(!el) return;
+  el.classList.toggle('checked');
+  save('check-'+id+'-'+todayKey, el.classList.contains('checked'));
+}
+function loadSkincare() {
+  ['msk-cleanser','msk-toner','msk-serum','msk-moisturizer','msk-spf','esk-makeup','esk-cleanser','esk-toner','esk-serum','esk-eye','esk-night'].forEach(id => {
+    const v=load('check-'+id+'-'+todayKey,false);
+    const el=document.getElementById(id);
+    if(el && v) el.classList.add('checked');
+  });
+  const sn=load('skincare-notes-'+todayKey,'');
+  const el=document.getElementById('skincare-notes');
+  if(el && sn) el.value=sn;
+}
+function saveSkincare() { save('skincare-notes-'+todayKey, document.getElementById('skincare-notes').value); }
+
+// ===== FIELDS =====
+function saveField(id) { const el=document.getElementById(id); if(el) save('field-'+id+'-'+todayKey, el.value); }
+function loadFields() {
+  ['londyn-note','samad-intention','sm-next-visit','sm-notes','eve-grateful','eve-release','home-priority','what-reading'].forEach(id => {
+    const v=load('field-'+id+'-'+todayKey,'');
+    const el=document.getElementById(id);
+    if(el && v) el.value=v;
+  });
+}
+
+// ===== WATER =====
+function initWater() {
+  const w=load('water-'+todayKey,0);
+  const grid=document.getElementById('water-grid');
+  grid.innerHTML=Array(8).fill(0).map((_,i)=>`<div class="water-cup ${i<w?'filled':''}" onclick="toggleWater(${i})">💧</div>`).join('');
+  document.getElementById('water-fill').style.width=(w/8*100)+'%';
+  document.getElementById('water-label').textContent=w+' of 8 glasses';
+}
+function toggleWater(i) { let w=load('water-'+todayKey,0); w=(i<w)?i:i+1; save('water-'+todayKey,w); initWater(); }
+
+// ===== SLEEP =====
+function updateSleep(v) {
+  document.getElementById('sleep-display').textContent=v+' hrs';
+  const notes=['Not enough — rest when you can.','A little short — be gentle with yourself.','Not enough — rest when you can.','Getting there!','Getting there!','Good rest — your body thanks you.','Good rest — your body thanks you.','Excellent sleep — you are restored!','Excellent sleep — you are restored!','You rested well!'];
+  const idx=Math.max(0,Math.min(Math.round(parseFloat(v))-3,notes.length-1));
+  document.getElementById('sleep-note').textContent=notes[idx];
+  save('sleep-'+todayKey,v);
+}
+function loadSleep() { const v=load('sleep-'+todayKey,7); document.getElementById('sleep-slider').value=v; updateSleep(v); }
+
+// ===== MOVEMENT =====
+function updateMovement() {
+  const type=document.getElementById('movement-type').value;
+  const detail=document.getElementById('movement-detail');
+  const lbl=document.getElementById('movement-detail-label');
+  if(!type || type==='rest') { detail.style.display='none'; return; }
+  detail.style.display='block';
+  lbl.textContent=(['walking','running','cycling'].includes(type))?'Distance (miles)':'Duration (min)';
+  saveMovement();
+}
+function saveMovement() {
+  save('movement-'+todayKey,{type:document.getElementById('movement-type').value,amount:document.getElementById('movement-amount').value,feel:document.getElementById('movement-feel').value});
+}
+function loadMovement() {
+  const m=load('movement-'+todayKey,null);
+  if(!m) return;
+  document.getElementById('movement-type').value=m.type||'';
+  if(m.amount) document.getElementById('movement-amount').value=m.amount;
+  if(m.feel) document.getElementById('movement-feel').value=m.feel;
+  updateMovement();
+}
+
+// ===== SUPPLEMENTS =====
+function addSupplement() {
+  const name=document.getElementById('supp-name').value.trim();
+  if(!name) return;
+  const time=document.getElementById('supp-time').value;
+  supplements.push({id:Date.now(),name,time,checked:false});
+  save('supplements',supplements);
+  document.getElementById('supp-name').value='';
+  renderSupplements();
+}
+function toggleSupp(id) {
+  supplements=supplements.map(s=>s.id===id?{...s,checked:!s.checked}:s);
+  save('supplements',supplements);
+  renderSupplements();
+}
+function removeSupp(id) { supplements=supplements.filter(s=>s.id!==id); save('supplements',supplements); renderSupplements(); }
+function renderSupplements() {
+  const el=document.getElementById('supplements-list');
+  if(!supplements.length) { el.innerHTML='<div class="empty-state">Add your supplements above</div>'; return; }
+  el.innerHTML=supplements.map(s=>`<div class="toggle-row"><div class="toggle-info"><div class="toggle-label">${s.time==='Morning'?'🌅':'🌙'} ${s.name}</div></div><div style="display:flex;gap:8px;align-items:center;"><div class="check-box-sm ${s.checked?'checked':''}" onclick="toggleSupp(${s.id})"></div><button onclick="removeSupp(${s.id})" style="background:none;border:none;color:var(--text-light);cursor:pointer;font-size:14px;">×</button></div></div>`).join('');
+}
+
+// ===== TOP 3 =====
+function saveTop3() {
+  const v={p1:document.getElementById('p1').value,p2:document.getElementById('p2').value,p3:document.getElementById('p3').value};
+  save('top3-'+todayKey,v);
+  updateGlance();
+}
+function loadTop3() {
+  const v=load('top3-'+todayKey,{});
+  if(v.p1) document.getElementById('p1').value=v.p1;
+  if(v.p2) document.getElementById('p2').value=v.p2;
+  if(v.p3) document.getElementById('p3').value=v.p3;
+}
+
+// ===== WINS =====
+function saveWin() {
+  const val=document.getElementById('win-input').value.trim();
+  if(!val) return;
+  wins.unshift({text:val,date:todayKey,id:Date.now()});
+  save('wins',wins);
+  document.getElementById('win-input').value='';
+  renderWins();
+}
+function renderWins() {
+  const el=document.getElementById('wins-log');
+  if(!wins.length) { el.innerHTML='<div class="empty-state">Your wins will build up here 💕</div>'; return; }
+  el.innerHTML=wins.slice(0,10).map(w=>`<div class="log-entry">${w.text}<div class="log-date">${w.date}</div></div>`).join('');
+}
+function saveBrainDump() { save('brain-dump-'+todayKey, document.getElementById('brain-dump').value); }
+
+// ===== TASKS =====
+function addTask() {
+  const name=document.getElementById('task-name').value.trim();
+  if(!name) return;
+  tasks.push({id:Date.now(),name,cat:document.getElementById('task-cat').value,due:document.getElementById('task-due').value,priority:document.getElementById('task-priority').value,status:document.getElementById('task-status').value,done:false});
+  save('tasks',tasks);
+  document.getElementById('task-name').value='';
+  document.getElementById('task-due').value='';
+  renderTasks();
+  renderCalendar();
+}
+function toggleTask(id) { tasks=tasks.map(t=>t.id===id?{...t,done:!t.done}:t); save('tasks',tasks); renderTasks(); }
+function deleteTask(id) { tasks=tasks.filter(t=>t.id!==id); save('tasks',tasks); renderTasks(); }
+function renderTasks() {
+  const open=tasks.filter(t=>!t.done);
+  const done=tasks.filter(t=>t.done);
+  const renderItem=t=>`<div class="task-item ${t.done?'done':''}"><div class="task-check ${t.done?'checked':''}" onclick="toggleTask(${t.id})"></div><div class="task-body"><div class="task-name">${t.name}</div><div class="task-meta"><span class="task-tag" style="background:${TASK_CAT_COLORS[t.cat]||'#ccc'}22;color:${TASK_CAT_COLORS[t.cat]||'#666'};">${TASK_CAT_LABELS[t.cat]||t.cat}</span>${t.due?`<span class="task-tag" style="background:#FFF9C4;color:#F57F17;">📅 ${t.due}</span>`:''}<span class="task-tag" style="background:${t.priority==='high'?'#FFEBEE':t.priority==='medium'?'#FFF9C4':'#E8F5E9'};color:${t.priority==='high'?'#C62828':t.priority==='medium'?'#F57F17':'#2E7D32'};">${t.priority==='high'?'🔴':t.priority==='medium'?'🟡':'🟢'} ${t.priority}</span></div></div><button class="delete-btn" onclick="deleteTask(${t.id})">🗑</button></div>`;
+  document.getElementById('open-tasks').innerHTML=open.length?open.map(renderItem).join(''):'<div class="empty-state">No open tasks 💕</div>';
+  document.getElementById('done-tasks').innerHTML=done.length?done.map(renderItem).join(''):'<div class="empty-state">Completed tasks will appear here</div>';
+}
+
+// ===== LONDYN ASSIGNMENTS =====
+function addLondynAssignment() {
+  const name=document.getElementById('londyn-assign-name').value.trim();
+  if(!name) return;
+  const date=document.getElementById('londyn-assign-date').value;
+  londynAssignments.unshift({id:Date.now(),name,date,done:false});
+  save('londyn-assignments',londynAssignments);
+  document.getElementById('londyn-assign-name').value='';
+  document.getElementById('londyn-assign-date').value='';
+  renderLondynAssignments();
+  renderCalendar();
+}
+function toggleLondynAssign(id) { londynAssignments=londynAssignments.map(a=>a.id===id?{...a,done:!a.done}:a); save('londyn-assignments',londynAssignments); renderLondynAssignments(); }
+function renderLondynAssignments() {
+  const el=document.getElementById('londyn-assignments-list');
+  if(!londynAssignments.length) { el.innerHTML='<div class="empty-state">No assignments added yet</div>'; return; }
+  el.innerHTML=londynAssignments.map(a=>`<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);"><div class="check-box-sm ${a.done?'checked':''}" onclick="toggleLondynAssign(${a.id})"></div><div style="flex:1;font-size:13px;${a.done?'text-decoration:line-through;color:var(--text-light);':''};">${a.name}${a.date?` <span style="color:var(--text-light);font-size:11px;">· ${a.date}</span>`:''}</div></div>`).join('');
+}
+
+// ===== CO-PARENT LOG =====
+<div class="log-date">${n.date}</div></div>`).join('');
+}
+
+// ===== RUNNING LOW =====
+function addLow(item) { if(lowList.includes(item)) return; lowList.push(item); save('low-list',lowList); renderLow(); }
+function addLowCustom() { const v=document.getElementById('low-custom').value.trim(); if(!v) return; addLow(v); document.getElementById('low-custom').value=''; }
+function removeLow(i) { lowList.splice(i,1); save('low-list',lowList); renderLow(); }
+function renderLow() {
+  const el=document.getElementById('low-list');
+  if(!lowList.length) { el.innerHTML='<div class="empty-state">Nothing on the list — you are stocked up! 💕</div>'; return; }
+  el.innerHTML=lowList.map((r,i)=>`<div class="low-item"><span class="low-name">🛒 ${r}</span><button class="got-it-btn" onclick="removeLow(${i})">✓ Got it</button></div>`).join('');
+}
+
+// ===== CALENDAR =====
+function renderCalendar() {
+  events=load('events',[]);
+  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('cal-month-label').textContent=months[calMonth]+' '+calYear;
+  document.getElementById('cal-headers').innerHTML=['Su','Mo','Tu','We','Th','Fr','Sa'].map(d=>`<div class="cal-day-hdr">${d}</div>`).join('');
+  const first=new Date(calYear,calMonth,1);
+  const last=new Date(calYear,calMonth+1,0);
+  let days=[];
+  for(let i=0;i<first.getDay();i++) { const d=new Date(calYear,calMonth,-first.getDay()+i+1); days.push({date:d,other:true}); }
+  for(let i=1;i<=last.getDate();i++) days.push({date:new Date(calYear,calMonth,i),other:false});
+  while(days.length%7!==0) { const d=new Date(calYear,calMonth+1,days.length-last.getDate()-first.getDay()+1); days.push({date:d,other:true}); }
+  const allTasks=tasks.filter(t=>t.due);
+  const allAssign=londynAssignments.filter(a=>a.date);
+  document.getElementById('cal-days').innerHTML=days.map(d=>{
+    const key=d.date.toISOString().split('T')[0];
+    const isToday=key===todayKey;
+    const hasEv=events.some(e=>e.date===key)||allTasks.some(t=>t.due===key)||allAssign.some(a=>a.date===key);
+    return `<div class="cal-day ${d.other?'other-month':''} ${isToday?'today':''} ${hasEv?'has-event':''}" onclick="selectCalDay('${key}')"><span>${d.date.getDate()}</span></div>`;
+  }).join('');
+}
+function changeMonth(dir) { calMonth+=dir; if(calMonth>11){calMonth=0;calYear++;} if(calMonth<0){calMonth=11;calYear--;} renderCalendar(); }
+function selectCalDay(key) {
+  selectedCalDay=key;
+  const d=new Date(key+'T12:00');
+  document.getElementById('selected-day-label').textContent=d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+  const dayEvs=events.filter(e=>e.date===key);
+  const dayTasks=tasks.filter(t=>t.due===key&&!t.done);
+  const dayAssign=londynAssignments.filter(a=>a.date===key&&!a.done);
+  const el=document.getElementById('selected-day-events');
+  if(!dayEvs.length&&!dayTasks.length&&!dayAssign.length) { el.innerHTML='<div class="empty-state">No events on this day 💕</div>'; return; }
+  el.innerHTML=[
+    ...dayEvs.map(e=>`<div class="event-item"><div class="event-name">${CAT_LABELS[e.cat]||''} ${e.name}</div><div class="event-meta">${e.time||''} ${e.notes||''}</div></div>`),
+    ...dayTasks.map(t=>`<div class="event-item" style="border-left-color:${TASK_CAT_COLORS[t.cat]||'#ccc'};"><div class="event-name">✅ ${t.name}</div><div class="event-meta">${TASK_CAT_LABELS[t.cat]||''}</div></div>`),
+    ...dayAssign.map(a=>`<div class="event-item" style="border-left-color:#E91E8C;"><div class="event-name">🌸 ${a.name}</div><div class="event-meta">Londyn assignment</div></div>`)
+  ].join('');
+  document.getElementById('ev-date').value=key;
+}
+function addEvent() {
+  const name=document.getElementById('ev-name').value.trim();
+  if(!name) { alert('Please enter an event name.'); return; }
+  events.push({id:Date.now(),name,date:document.getElementById('ev-date').value||todayKey,time:document.getElementById('ev-time').value,cat:document.getElementById('ev-cat').value,notes:document.getElementById('ev-notes').value});
+  save('events',events);
+  document.getElementById('ev-name').value='';
+  document.getElementById('ev-time').value='';
+  document.getElementById('ev-notes').value='';
+  renderCalendar();
+  if(selectedCalDay) selectCalDay(selectedCalDay);
+}
+
+// ===== JOURNAL =====
+function loadJournal() {
+  journalPromptIdx=load('journal-prompt-idx',0);
+  document.getElementById('journal-prompt').textContent=JOURNAL_PROMPTS[journalPromptIdx%JOURNAL_PROMPTS.length];
+  const j=load('journal-'+todayKey,'');
+  if(j) document.getElementById('journal-text').value=j;
+}
+function saveJournal() { save('journal-'+todayKey, document.getElementById('journal-text').value); }
+function nextJournalPrompt() { journalPromptIdx=(journalPromptIdx+1)%JOURNAL_PROMPTS.length; save('journal-prompt-idx',journalPromptIdx); document.getElementById('journal-prompt').textContent=JOURNAL_PROMPTS[journalPromptIdx]; }
+
+// ===== STREAK =====
+function updateStreak() {
+  const streak=load('streak',0);
+  document.getElementById('streak-count').textContent=streak;
+  document.getElementById('glance-streak').textContent=streak;
+}
+function saveDay() {
+  let streak=load('streak',0);
+  const last=load('last-streak-day','');
+  if(last!==todayKey) { streak++; save('streak',streak); save('last-streak-day',todayKey); }
+  updateStreak();
+  updateGlance();
+  alert('Day saved! You showed up for yourself today LaLa 👑');
+}
+
+// ===== TAB NAV =====
+function showTab(name, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p=>{p.classList.remove('active');p.style.display='none';});
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  const tp = document.getElementById('tab-'+name);
+  if(tp){tp.classList.add('active');tp.style.display='block';}
+  if(btn) btn.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+  if(name==='calendar') renderCalendar();
+  if(name==='savings'){renderGoals();renderWishList();}
+  if(name==='notes'){const n=load('notes','');const el=document.getElementById('notes-text');if(el)el.value=n;}
+  if(name==='journal') renderLetters();
+  if(name==='faith'){renderAnsweredPrayers();renderMoodHistory();}
+  if(name==='tasks') renderTasks();
+  if(name==='family') { renderLondynAssignments();(); renderCamMilestones(); renderCamTasks(); renderSamadMemories(); }
+  if(name==='work') renderWins();
+}
+
+init();
+</script>
+</body>
+</html>
